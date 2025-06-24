@@ -1,0 +1,139 @@
+.card-forms {
+  border: none;
+  cursor: pointer;
+  padding: 0 1em 2em 1em;
+  border-radius: 0 0 15px 15px;
+}
+
+.ant-card-body {
+  padding: 24px 24px 0 24px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: start;
+}
+
+.forms-title {
+  width: 100%;
+  color: #000;
+  font-size: 22px;
+  font-weight: 600;
+}
+.forms-description {
+  width: 100%;
+  color: #969696;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.label-input-forms {
+  color: #000;
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.label-input-hormonio {
+  display: flex;
+  align-items: center;
+  color: #000;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.input-forms {
+  width: 100%;
+  margin-top: 10px;
+  border: 2px solid #ededed;
+  border-radius: 50px;
+  padding: 1em;
+  background-color: #fff;
+}
+
+.select-forms {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  transition: border 0.3s ease;
+}
+
+.select-forms:focus {
+  outline: none;
+  border-color: #1890ff;
+}
+
+.hormonio {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  background-color: #ededed;
+  border: none;
+  border-radius: 50px;
+  width: 100%;
+  padding: 1em;
+  font-size: 16px;
+  color: #000;
+  box-shadow: rgb(235, 235, 235) 0px 5px 10px;
+}
+
+.card-hormonio {
+  margin-top: 20px;
+  border-radius: 15px;
+  border-radius: 1px solid #ededed;
+  cursor: pointer;
+}
+.card-hormonio:hover {
+  box-shadow: rgb(205, 225, 248) 0px 5px 20px;
+}
+.btn-save {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 50px;
+  width: 40%;
+  height: 45px;
+  background-color: #74d569;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+.btn-save:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  background: linear-gradient(110.55deg, #72aaf7 21.22%, #74d569 68.3%);
+}
+
+.margin {
+  margin-left: 10px;
+}
+@media screen and (max-width: 900px) {
+  .btn-save {
+    width: 100%;
+  }
+  .margin {
+    margin-left: 0px;
+  }
+}

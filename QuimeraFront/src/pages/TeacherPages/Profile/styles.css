@@ -1,0 +1,114 @@
+.card-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: none;
+  border-radius: 15px;
+  box-shadow: rgb(205, 225, 248) 0px 5px 20px;
+  cursor: pointer;
+  height: 100%;
+}
+.card-profile:hover {
+  box-shadow: rgba(217, 234, 255, 1) 0px 5px 20px;
+}
+
+.avatar-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 25px;
+  padding: 4em;
+  box-shadow: rgb(152, 189, 231) 0px 5px 20px;
+}
+.avatar-profile:hover {
+  box-shadow: rgb(152, 189, 231) 0px 5px 50px;
+}
+
+.name-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  font-size: 25px;
+  color: #000;
+  font-weight: 600;
+  margin-top: 20px;
+}
+.ocupation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+  color: #969696;
+  margin-top: 5px;
+}
+.course {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+  color: #969696;
+  margin-top: 5px;
+}
+.input-profile {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.green {
+  background-color: #74d569;
+}
+
+.blue {
+  background-color: #72aaf7;
+}
+
+.change-password {
+  margin-top: 30px;
+  align-items: center;
+  border: none;
+  border-radius: 50px;
+  width: 60%;
+  height: 45px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.label-profile {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  color: #000;
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.input-profile {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 10px;
+  border: 2px solid #ededed;
+  border-radius: 50px;
+  padding: 1em;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 500px){
+  .change-password {
+    width: 100%;
+  }
+}

@@ -1,0 +1,95 @@
+.cardCCWater {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  padding: 0px;
+}
+
+.imgcatsDiv {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+}
+
+.imgcats {
+  width: 50%;
+  height: 100%;
+}
+
+.divButtonIniciate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 2em;
+  margin-top: 20px;
+  background-color: #72aaf7;
+  border-radius: 15px;
+}
+
+.titleIniciate {
+  font-size: 2em;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.btnIniciate {
+  padding: 1.5em;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  background-color: #74d569;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.btnIniciate:hover {
+  background-color: #46cb37;
+  color: #fff;
+  box-shadow: rgb(136, 230, 149) 0px 5px 20px;
+}
+
+.titlesCCWater{
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.descCCWater{
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.expCCWater{
+    font-size: 18px;
+    font-weight: 400;
+    color: #3c3c3c;
+}
+
+.bold{
+    font-size: 19px;
+    font-weight: 600;
+    color: #000000;
+
+}
+
+.itemsCCWater{
+    color: #000000;
+    font-size: 18px;
+    font-weight: 400;
+}

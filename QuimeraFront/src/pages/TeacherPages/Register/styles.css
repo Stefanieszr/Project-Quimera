@@ -1,0 +1,113 @@
+.card-login {
+  display: flex;
+  border: none;
+  border-radius: 15px;
+  box-shadow: rgb(135, 184, 240) 0px 5px 20px;
+  padding: 2em;
+  cursor: pointer;
+}
+
+.card-login:hover {
+  box-shadow: rgb(135, 184, 240) 0px 5px 50px;
+}
+
+.logo-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 300px;
+}
+
+.title-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  color: #000;
+  font-weight: 600;
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+.subtitle-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  color: #969696;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.button-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+  width: 100%;
+  padding: 0.5em;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: #72aaf7;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+.button-login:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  background: linear-gradient(110.55deg, #72aaf7 21.22%, #74d569 68.3%);
+}
+
+.label-input {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  color: #000;
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.input-login {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 10px;
+  border: 2px solid #ededed;
+  border-radius: 50px;
+  padding: 1em;
+  background-color: #fff;
+}
+.forgot-password {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  color: #7a7a7a;
+  margin-top: 10px;
+}
+.forgot-password:hover {
+  color: #74d569;
+}
+.link-register {
+  margin-left: 5px;
+  color: #74d569;
+}
+.link-register:hover {
+  color: #72aaf7;
+}

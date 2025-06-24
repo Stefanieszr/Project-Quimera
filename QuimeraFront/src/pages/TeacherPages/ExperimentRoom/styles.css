@@ -1,0 +1,94 @@
+.pindasala{
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+}
+.divpinsala{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.colDivContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.btnGoBack{
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    gap: 10px;
+    cursor: pointer;
+    color: #464646;
+}
+.btnGoBack:hover{
+    color: #000;
+    background-color: transparent;  
+}
+
+.btnDivBack{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.labelexperimento{
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    margin-right: 10px;
+}
+.marginTop{
+    margin-top: 20px;
+}
+
+.divpinsalaCol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.marginBottom{
+    margin-bottom: 10px;
+}
+.marginBottomLess{
+    margin-bottom: 5px;
+}
+.bAlunos{
+    font-size: 20px;
+}
+
+.button-liberarExperimento {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    padding: 0.5em;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background-color: #74d569;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+      rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  }
+  .button-liberarExperimento:hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    background: linear-gradient(110.55deg, #74d569 21.22%, #72aaf7  68.3%);
+  }

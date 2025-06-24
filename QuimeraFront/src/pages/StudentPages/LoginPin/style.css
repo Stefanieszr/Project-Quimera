@@ -1,0 +1,80 @@
+.container-LoginPin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #74d569;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.logo-loginpin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 250px;
+}
+.content-loginPin{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 15px;
+}
+.card-loginPin {
+  display: flex;
+  border: none;
+  border-radius: 15px;
+  box-shadow: rgb(185, 241, 179) 0px 5px 20px;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  padding-left: 3em;
+  padding-right: 3em;
+  cursor: pointer;
+}
+
+.card-loginPin:hover {
+  box-shadow: rgb(185, 241, 179) 0px 5px 50px;
+}
+
+.input-loginPin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ededed;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 50px;
+    color: #000;
+}
+
+.button-loginPin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    padding: 1.2em;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background-color: #72aaf7;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.button-loginPin:hover{
+    background-color: #74d569;
+    color: #fff;
+    box-shadow: rgb(135, 184, 240) 0px 5px 20px;
+}
+

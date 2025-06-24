@@ -1,0 +1,11 @@
+.ContainerCountdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.TimeCountdown {
+    font-size: 16px;
+    margin-left: 0.5rem;
+    color: #000;
+    font-weight: 400;
+}

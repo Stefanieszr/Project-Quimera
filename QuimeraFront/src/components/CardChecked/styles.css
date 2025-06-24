@@ -1,0 +1,14 @@
+.card {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ededed;
+  cursor: pointer;
+  transition: border-color 0.5s ease;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.card-clicked {
+  border-color: #74d569;
+}

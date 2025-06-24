@@ -1,0 +1,169 @@
+.container-HomePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 100vh; */
+  width: 100%;
+  background-color: #72aaf7;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 5em;
+}
+
+.headerHomePG {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 15px;
+  background-color: #ffffff;
+  padding: 3em;
+}
+
+.logoHomePG {
+  width: 250px;
+  height: 80px;
+}
+
+.logoHomePG:hover {
+  animation: moveImage 5s linear infinite, rotateImage 5s linear infinite;
+}
+
+@keyframes moveImage {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(50px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes rotateImage {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
+}
+
+.divbuttonMakeLogin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.answerAction {
+  color: #0000;
+  font-weight: 700;
+}
+
+.btnMakeLogin {
+  padding: 1.2em;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  background-color: #72aaf7;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.btnMakeLogin:hover {
+  background-color: #74d569;
+  color: #fff;
+  box-shadow: rgb(135, 184, 240) 0px 5px 20px;
+}
+
+.textanswerAction {
+  font-size: 18px;
+  font-weight: 600;
+  color: #74d569;
+}
+
+.container-HomePage-Card {
+  display: flex;
+  border: none;
+  border-radius: 15px;
+  box-shadow: rgb(185, 241, 179) 0px 5px 20px;
+  padding: 1em;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.container-HomePage-Card:hover {
+  box-shadow: rgb(185, 241, 179) 0px 5px 50px;
+}
+.titleHomepage {
+  font-weight: 700;
+  color: #000;
+}
+
+.paragHomePage {
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+}
+.CardHomePageExp {
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  justify-content: center;
+  /* gap: 15px; */
+  border-radius: 20px;
+  border: none;
+  padding: 2em;
+  cursor: pointer;
+}
+
+.rowCard {
+  width: 100%;
+}
+.contentCardHomePageExp {
+  display: flex;
+  color: #ffffff;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 15px;
+}
+
+.iconHomePGExp {
+  width: 70px;
+  height: 70px;
+}
+
+.textHomePGExp {
+  font-size: 25px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.Orange {
+  background-color: #f2994a;
+  box-shadow: rgb(185, 241, 179) 0px 5px 20px;
+}
+
+.Orange:hover {
+  box-shadow: rgb(233, 201, 115) 0px 5px 50px;
+  background-color: #f58320;
+}
+
+.Yellow {
+  background-color: #f2c94c;
+  box-shadow: rgb(185, 241, 179) 0px 5px 20px;
+}
+
+.Yellow:hover {
+  box-shadow: rgb(233, 225, 115) 0px 5px 50px;
+  background-color: #fac31e;
+}

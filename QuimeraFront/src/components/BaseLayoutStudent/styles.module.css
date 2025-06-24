@@ -1,0 +1,34 @@
+.contentPages {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-image: url("assets/contentimg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 2em;
+}
+
+.pageCardTitle {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+  box-shadow: rgb(205, 225, 248) 0px 5px 20px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  cursor: pointer;
+}
+
+.pageCardTitle:hover {
+  box-shadow: rgba(217, 234, 255, 1) 0px 5px 20px;
+}
+
+.titlePage {
+  color: #000;
+  font-weight: 600;
+  font-size: 22px;
+  margin-top: 10px;
+}

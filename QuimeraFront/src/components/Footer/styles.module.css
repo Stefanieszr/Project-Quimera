@@ -1,0 +1,28 @@
+.footer {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
+.descriptionFooter {
+  font-size: 15px;
+  color: #a7a7a7;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem; /* espaço entre elementos */
+}
+.descriptionFooter:hover {
+  color: #72aaf7;
+}
+
+.iconFooter {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.iconFooter:hover {
+  color: #74d569;
+}

@@ -1,0 +1,176 @@
+.titleChart {
+  color: #000;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.titleChart:hover {
+  color: #72aaf7;
+}
+
+.pageCardHome {
+  border: none;
+  border-radius: 0 0 20px 20px;
+  /* box-shadow: rgb(205, 225, 248) 0px 5px 20px; */
+  gap: 20px;
+  min-height: 400px;
+  width: 100%;
+}
+
+.pageCardStudents {
+  min-width: 20vw;
+}
+.pageCardHome .antCardBody {
+  padding: 0 24px 0 24px;
+}
+/* 
+.page-card-students:hover {
+  box-shadow: rgba(217, 234, 255, 1) 0px 5px 20px;
+} */
+
+.tableHome {
+  width: 100% !important;
+}
+.titleCardHome {
+  color: #000;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.CardsDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-center;
+  align-items: center;
+  gap: 20px;
+  /* margin-bottom: 20px; */
+}
+.styleButtonsTable {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.btnHomeTable {
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rowDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+.colDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.bigger {
+  width: 70%;
+}
+.small {
+  width: 30%;
+}
+
+.cardsColSpace {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  gap: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+.graficosClass {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+.ColDivCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+.divStudetns {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+  max-height: 300px;
+  /* overflow-y: scroll; */
+}
+.divNameAndSeeMore {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+.divNameAndSeeMore label {
+  font-size: 18px;
+  font-weight: 500;
+}
+.divNameAndSeeMore label span {
+  font-size: 16px;
+  font-weight: 400;
+}
+.divInputsSearch {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.inputSearch {
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+}
+.iconSearch {
+  color: #ccc;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+h3 {
+  margin-bottom: 0;
+}
+@media screen and (max-width: 800px) {
+  .cardsColSpace {
+    flex-direction: column;
+  }
+  .CardsDiv {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .bigger {
+    width: 100%;
+  }
+  .small {
+    width: 100%;
+  }
+}
