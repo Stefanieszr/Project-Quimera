@@ -127,14 +127,14 @@
   box-shadow: rgb(152, 231, 194) 0px 5px 10px;
   transform: scale(1);
 }
-.titleNotaCard{
+.titleNotaCard {
   display: flex;
   align-items: center;
   font-size: 20px;
   font-weight: 500;
   color: #ffffff;
 }
-.pontosNotaCard{
+.pontosNotaCard {
   display: flex;
   align-items: center;
   font-size: 25px;

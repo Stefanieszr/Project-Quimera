@@ -1,4 +1,4 @@
-.card-profile {
+.cardProfile {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,11 +9,11 @@
   cursor: pointer;
   height: 100%;
 }
-.card-profile:hover {
+.cardProfile:hover {
   box-shadow: rgba(217, 234, 255, 1) 0px 5px 20px;
 }
 
-.avatar-profile {
+.avatarProfile {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,11 +22,11 @@
   padding: 4em;
   box-shadow: rgb(152, 189, 231) 0px 5px 20px;
 }
-.avatar-profile:hover {
+.avatarProfile:hover {
   box-shadow: rgb(152, 189, 231) 0px 5px 50px;
 }
 
-.name-profile {
+.nameProfile {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,7 +57,7 @@
   color: #969696;
   margin-top: 5px;
 }
-.input-profile {
+.inputProfile {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -71,7 +71,7 @@
   background-color: #72aaf7;
 }
 
-.change-password {
+.changePassword {
   margin-top: 30px;
   align-items: center;
   border: none;
@@ -86,7 +86,7 @@
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
-.label-profile {
+.labelProfile {
   display: flex;
   justify-content: flex-start;
   width: 100%;
@@ -96,7 +96,7 @@
   margin-top: 20px;
 }
 
-.input-profile {
+.inputProfile {
   display: flex;
   justify-content: flex-start;
   width: 100%;
@@ -107,8 +107,8 @@
   background-color: #fff;
 }
 
-@media screen and (max-width: 500px){
-  .change-password {
+@media screen and (max-width: 500px) {
+  .changePassword {
     width: 100%;
   }
 }

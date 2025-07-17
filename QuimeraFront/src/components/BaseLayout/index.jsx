@@ -10,7 +10,7 @@ import styles from "./styles.module.css";
 
 const { Content } = Layout;
 
-const Base = ({ children, goTo, Icon, goToName, titlepage }) => {
+const Base = ({ children, goTo, Icon, goToName }) => {
   const navigate = useNavigate();
   // const teacherContext = useContext(TeacherContext);
   return (
@@ -19,21 +19,27 @@ const Base = ({ children, goTo, Icon, goToName, titlepage }) => {
         <HeaderComponent />
         <Content className={styles.contentPages}>
           <Card className={styles.pageCardTitle}>
-            <Row>
+            <Row className={styles.rowPadding}>
               <Col xs={24} xl={24}>
-                <Breadcrumb>
-                  <Breadcrumb.Item onClick={() => navigate("/")}>
-                    <RiHomeHeartLine />
-                  </Breadcrumb.Item>
-
-                  <Breadcrumb.Item onClick={() => navigate(goTo)}>
-                    {Icon}
-                    <span>{goToName}</span>
-                  </Breadcrumb.Item>
-                </Breadcrumb>
-              </Col>
-              <Col xs={24} xl={24}>
-                <h3 className={styles.titlepage}>{titlepage}</h3>
+                <Breadcrumb
+                  items={[
+                    {
+                      title: (
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "4px",
+                          }}
+                        >
+                          {Icon}
+                          {goToName}
+                        </span>
+                      ),
+                      onClick: () => navigate(goTo),
+                    },
+                  ]}
+                />
               </Col>
             </Row>
           </Card>

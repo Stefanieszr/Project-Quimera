@@ -1,67 +1,58 @@
 import { api } from "../../api";
 
-function postExperiment(_idTeacher, body) {
-  return api.post(`experiments/${_idTeacher}`, body);
+// ---------- POST ----------
+function createExperiment(idTeacher, body) {
+  return api.post(`/teachers/${idTeacher}/experiments`, body);
 }
 
-async function findExperimentById(idTeacher, id) {
-  return await api.get(`experiments/${idTeacher}/${id}`);
+// ---------- GET ----------
+async function getExperimentById(idTeacher, idExperiment) {
+  return await api.get(`/teachers/${idTeacher}/experiments/${idExperiment}`);
+}
+async function getExperimentByPin(pin) {
+  return await api.get(`/experiments/pin/${pin}`);
+}
+async function getAllExperiments(idTeacher) {
+  return await api.get(`/teachers/${idTeacher}/experiments`);
 }
 
-async function findExperiments(_idTeacher) {
-  return await api.get(`experiments/${_idTeacher}`);
+async function getExperimentOptions() {
+  return await api.get(`/experiments/options`);
+}
+async function getExperimentOptionOne() {
+  return await api.get(`/experiments/optionOne`);
 }
 
+async function getGraphic(id) {
+  return await api.get(`/students/${id}/graphic`);
+}
+async function getInicialGraphic(id) {
+  return await api.get(`/students/${id}/initial-graphic`);
+}
+
+// ---------- PUT ----------
+async function liberateRoom(id, body) {
+  return await api.put(`/experiments/${id}/liberate-room`, body);
+}
+async function liberateResult(id, body) {
+  return await api.put(`/experiments/${id}/liberate-result`, body);
+}
+
+// ---------- DELETE ----------
 async function deleteExperiment(id) {
   return await api.delete(`experiments/${id}`);
 }
 
-async function getOptions() {
-  return await api.get(`/experiments/getOptions`);
-}
-
-async function getPhaseOne() {
-  return await api.get(`/experiments/getPhaseOne`);
-}
-
-async function getGraphic(id) {
-  return await api.get(`/experiments/getAnswer/${id}`);
-}
-
-async function getInicialGraphic(id) {
-  return await api.get(`/experiments/getInicialAnswer/${id}`);
-}
-
-async function getDataByPin(pin) {
-  return await api.get(`/experiments/pin/${pin}`);
-}
-
-async function getCorrectGraphic(id) {
-  return await api.get(`/experiments/correctGraphic/${id}`);
-}
-
-//rotas para todos os graficos de resultados
-
-async function getTotalCorrectGraphic(id) {
-  return await api.get(`/experiments/${id}/graphic`);
-}
-
-// rota para editar o liberateRoom e liberar a sala de experimento
-async function liberateRoom(id, body) {
-  return await api.put(`/experiments/liberateRoom/${id}`, body);
-}
-
 export {
-  getDataByPin,
-  getCorrectGraphic,
-  postExperiment,
-  findExperimentById,
-  findExperiments,
+  getExperimentByPin,
+  createExperiment,
+  getExperimentById,
+  getAllExperiments,
   deleteExperiment,
-  getOptions,
-  getPhaseOne,
+  getExperimentOptions,
+  getExperimentOptionOne,
   getGraphic,
   getInicialGraphic,
-  getTotalCorrectGraphic,
   liberateRoom,
+  liberateResult,
 };

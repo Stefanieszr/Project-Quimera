@@ -130,6 +130,11 @@ code {
     monospace;
 }
 
+.ant-card-body {
+  padding-bottom: 10px !important;
+  padding-top: 10px !important;
+}
+
 #lottie-animation {
   width: 400px;
   height: 400px;
@@ -139,6 +144,28 @@ h1 {
   font-weight: 700;
   font-size: 28px;
   color: #000;
+}
+
+.ant-card-body {
+  padding: 0;
+}
+
+/* Dot inativo */
+/* global.css */
+
+.slick-dots li button {
+  background: red !important;
+  border-radius: 50%;
+  width: 16px !important;
+  height: 16px !important;
+  border: none;
+  opacity: 1 !important;
+}
+
+.slick-dots li.slick-active button {
+  background-color: #000 !important;
+  background: black !important;
+  opacity: 1 !important;
 }
 
 @layer base {

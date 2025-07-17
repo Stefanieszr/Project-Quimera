@@ -1,26 +1,26 @@
 import { Card } from "antd";
 import React from "react";
 import { MdOutlineBiotech } from "react-icons/md";
-import "./styles.css";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import Base from "../../../../components/BaseLayoutStudent";
-import CardChecked from "../../../../components/CardChecked";
-import { postAnswer } from "../../../../services/routes/api/AuthStudent";
+import styles from "./styles.module.css";
+
+import Base from "@/components/BaseLayoutStudent";
+import CardChecked from "@/components/CardChecked";
+import WaterfallChart from "@/pages/StudentPages/WaterfallChart";
+import { postAnswer } from "@/services/routes/api/AuthStudent";
 import {
-  getOptions,
-  getPhaseOne,
+  getExperimentOptions,
+  getExperimentOptionOne,
   getGraphic,
-  getDataByPin,
+  getExperimentByPin,
   getInicialGraphic,
-} from "../../../../services/routes/api/Experiment";
-import WaterfallChart from "../../WaterfallChart";
+} from "@/services/routes/api/Experiment";
 
 const Experiment = () => {
   const { pin } = useParams();
   const idStudent = localStorage.getItem("idStudent");
-  const storedName = localStorage.getItem("name");
   const [showB1, setShowB1] = React.useState(false);
   const [showB2, setShowB2] = React.useState(false);
   const [options, setOptions] = React.useState({
@@ -38,24 +38,25 @@ const Experiment = () => {
   }, [experimentData]);
 
   React.useEffect(() => {
-    getOptions().then((response) => {
+    getExperimentOptions().then((response) => {
       setOptions({
         optionsOne: response.data.optionsOne,
         optionsTwo: response.data.optionsTwo,
       });
     });
-    getPhaseOne().then((response) => {
+    getExperimentOptionOne().then((response) => {
       setPhaseOne(response.data);
     });
-    getDataByPin(pin).then((response) => {
+    getExperimentByPin(pin).then((response) => {
       setExperimentData(response.data.experiment);
     });
   }, [setPhaseOne, pin]);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      getDataByPin(pin).then((response) => {
-        setLiberateRoomValue(response.data.experiment.liberateRoom);
+      getExperimentByPin(pin).then((response) => {
+        setLiberateRoomValue(response.data.experiment.liberateResult);
+        console.log(response.data.experiment);
       });
     }, 1000);
     return () => clearInterval(interval);
@@ -150,39 +151,34 @@ const Experiment = () => {
     <Base
       goTo={"/"}
       Icon={<MdOutlineBiotech />}
-      goToName={"Experiment"}
-      titlepage={`the experiment room: ${pin}, `}
-      nameofuser={storedName}
+      goToName={`Sala do experimento: ${pin}`}
+      titlepage={`${experimentData.title}`}
+      descriptionPage={`${experimentData.description} Considerando o caso clínico, responda as perguntas a seguir.`}
       children={
-        <div className="divCol">
+        <div className={styles.divCol}>
           {liberateRoomValue && (
-            <Card className="notaCard">
-              <h3 className="titleNotaCard">
+            <Card className={styles.notaCard}>
+              <h3 className={styles.titleNotaCard}>
                 YOUR GRADE WAS:{" "}
-                <b className="pontosNotaCard">{graphic?.data?.nota} PONTOS</b>
+                <b className={styles.pontosNotaCard}>
+                  {graphic?.data?.nota} PONTOS
+                </b>
               </h3>
             </Card>
           )}
-          <div className="divCards">
-            <Card className="card-chartsExperiment">
-              <h3 className="title-cardExperiment">
-                Title: {experimentData.title}
-              </h3>
-              <span className="description-cardExperiment">
-                Description: {experimentData.description}
-              </span>
-              <br />
-              <p className="subtitle-cardExperiment">
+          <div className={styles.divCards}>
+            <Card className={styles.cardChartsExperiment}>
+              <p className={styles.subtitleCardExperiment}>
                 Inform OP1 and OP2 (Options) to perform the experiment
               </p>
-              <div className="contentChoices-cardExperiment">
-                <div className="contentB1-Choices">
+              <div className={styles.contentChoicesCardExperiment}>
+                <div className={styles.contentB1Choices}>
                   {!showB1 && (
-                    <div className="content-ButtonAndLabel">
+                    <div className={styles.contentButtonAndLabel}>
                       {!liberateRoomValue && (
                         <button
                           onClick={() => setShowB1(true)}
-                          className="button-Experiment"
+                          className={styles.buttonExperiment}
                         >
                           OP1
                         </button>
@@ -197,12 +193,12 @@ const Experiment = () => {
                       {!liberateRoomValue && (
                         <button
                           onClick={() => setShowB1(false)}
-                          className="button-Experiment"
+                          className={styles.buttonExperiment}
                         >
                           OP1
                         </button>
                       )}
-                      <div className="min-height-answer">
+                      <div className={styles.minHeightAnswer}>
                         {options.optionsOne.map((item, index) => (
                           <div key={index}>
                             <CardChecked
@@ -217,13 +213,13 @@ const Experiment = () => {
                     </>
                   )}
                 </div>
-                <div className="contentB1-Choices">
+                <div className={styles.contentB1Choices}>
                   {!showB2 && (
-                    <div className="content-ButtonAndLabel">
+                    <div className={styles.contentButtonAndLabel}>
                       {!liberateRoomValue && (
                         <button
                           onClick={() => setShowB2(true)}
-                          className="button-Experiment"
+                          className={styles.buttonExperiment}
                         >
                           OP2
                         </button>
@@ -238,12 +234,12 @@ const Experiment = () => {
                       {!liberateRoomValue && (
                         <button
                           onClick={() => setShowB2(false)}
-                          className="button-Experiment"
+                          className={styles.buttonExperiment}
                         >
                           OP2
                         </button>
                       )}
-                      <div className="min-height-answer">
+                      <div className={styles.minHeightAnswer}>
                         {options.optionsTwo.map((item, index) => (
                           <div key={index}>
                             <CardChecked
@@ -258,9 +254,9 @@ const Experiment = () => {
                     </>
                   )}
                 </div>
-                <div className="contentB1-Choices">
+                <div className={styles.contentB1Choices}>
                   <button
-                    className="btnRealizarExperimento"
+                    className={styles.btnRealizarExperimento}
                     disabled={isButtonDisabled}
                     onClick={handleButtonDisabled}
                   >
@@ -271,7 +267,7 @@ const Experiment = () => {
                 </div>
               </div>
             </Card>
-            <Card className="card-chartsExperiment">
+            <Card className={styles.cardChartsExperiment}>
               {liberateRoomValue && (
                 <>
                   {answerOneStorage === "Hipotálamo" &&
@@ -306,7 +302,7 @@ const Experiment = () => {
                   <h3>Waiting for the result to be released by the teacher</h3>
                 </>
               )}
-              <div className="contentChart-cardExperiment">
+              <div className={styles.contentChartCardExperiments}>
                 {(liberateRoomValue && graphic?.data?.expectedValue) ||
                 (!liberateRoomValue && inicialGraphic?.data?.expectedValue) ? (
                   <WaterfallChart

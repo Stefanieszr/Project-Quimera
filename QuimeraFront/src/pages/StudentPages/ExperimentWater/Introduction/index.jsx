@@ -1,10 +1,11 @@
-import "./styles.css";
 import { Card, Button } from "antd";
 import Base from "components/BaseLayoutStudent";
 import { AiOutlineExperiment } from "react-icons/ai";
 import { BsBook } from "react-icons/bs";
 import { MdOutlineBiotech } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
+
+import styles from "./styles.module.css";
 
 const IntroductionWater = () => {
   const { pin } = useParams();
@@ -24,10 +25,10 @@ const IntroductionWater = () => {
       titlepage={`the introduction of the body water drop matter of the experiment: ${pin}, `}
       nameofuser={storedName}
       children={
-        <Card className="cardCCWater">
-          <div className="divTextsintro">
-            <h1 className="titlesCCWater">WATER for “CHIMERA”</h1>
-            <span className="expCCWater">
+        <Card className={styles.cardCCWater}>
+          <div className={styles.divTextsintro}>
+            <h1 className={styles.titlesCCWater}>WATER for “CHIMERA”</h1>
+            <span className={styles.expCCWater}>
               The maintenance of parameters, with well-defined limits, is a
               fundamental characteristic for the possibility of life. One of the
               most relevant of these parameters is the control of WATER in the
@@ -37,8 +38,8 @@ const IntroductionWater = () => {
               throughout the day. The (daily, natural) gain and loss of water
               vary continuously within these limits previously mentioned.
             </span>
-            <h1 className="titlesCCWater">Specifying for: </h1>
-            <ul className="itemsCCWater">
+            <h1 className={styles.titlesCCWater}>Specifying for: </h1>
+            <ul className={styles.itemsCCWater}>
               <li>
                 <strong>GAIN:</strong> The intake of water in liquid form +
                 water present in food + water originating from cellular
@@ -49,7 +50,7 @@ const IntroductionWater = () => {
                 + Breathing + Feces + Milk.
               </li>
             </ul>
-            <span className="expCCWater">
+            <span className={styles.expCCWater}>
               Both the gain and loss of water from the animal's body are
               continuous, with more significant episodes and others less so, for
               example: when urinating, the animal eliminates a significant
@@ -62,7 +63,7 @@ const IntroductionWater = () => {
             </span>
             <br />
             <br />
-            <span className="expCCWater">
+            <span className={styles.expCCWater}>
               When the loss reaches significant levels, mechanisms for ingestion
               are triggered, precisely by the sensation of thirst, but other
               concomitant mechanisms will also be promoted, for example, with
@@ -73,7 +74,7 @@ const IntroductionWater = () => {
             </span>
             <br />
             <br />
-            <span className="expCCWater">
+            <span className={styles.expCCWater}>
               As soon as dehydration begins, the animal will look for water to
               drink. This varies depending on several aspects, such as: species,
               physiological state of the individual, age, temperature and
@@ -87,23 +88,23 @@ const IntroductionWater = () => {
               related to the control of water.
             </span>
           </div>
-          <div className="divButtonIntro">
-            <h1 className="titleIntro">
+          <div className={styles.divButtonIntro}>
+            <h1 className={styles.titleIntro}>
               Do you want to study the clinical case before starting or jumping
               into the experiment?
             </h1>
-            <div className="divButtonsIntro">
+            <div className={styles.divButtonsIntro}>
               <Button
-                className="btnIntro Yellow"
+                className={`${styles.btnIntro} ${styles.Yellow}`}
                 type="primary"
                 onClick={navigateToClinicCase}
               >
                 <BsBook />
                 Study clinical case
               </Button>
-              <span className="titleIntro"> Or </span>
+              <span className={styles.titleIntro}> Or </span>
               <Button
-                className="btnIntro Orange"
+                className={`${styles.btnIntro} ${styles.Orange}`}
                 type="primary"
                 onClick={navigateToExperiment}
               >

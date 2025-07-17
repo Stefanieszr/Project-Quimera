@@ -1,150 +1,61 @@
-import { Card } from "antd";
-import React from "react";
+import { Card, Carousel } from "antd";
+import React, { useRef, useState } from "react"; // Importe useState
 import { MdOutlineBiotech } from "react-icons/md";
-import "./styles.css";
 import { useParams } from "react-router-dom";
-import { postAnswer } from "services/routes/api/AuthStudent";
-import {
-  getOptions,
-  getPhaseOne,
-  getGraphic,
-  getDataByPin,
-  getInicialGraphic,
-} from "services/routes/api/Experiment";
-import Swal from "sweetalert2";
+import { getExperimentByPin } from "services/routes/api/Experiment";
+
+import styles from "./styles.module.css";
 
 import Base from "@/components/BaseLayoutStudent";
 import CardChecked from "@/components/CardChecked";
-import WaterfallChart from "@/pages/StudentPages/WaterfallChart";
 
 const ExperimentTemperature = () => {
   const { pin } = useParams();
-  const idStudent = localStorage.getItem("idStudent");
-  const storedName = localStorage.getItem("name");
-  const [showB1, setShowB1] = React.useState(false);
-  const [showB2, setShowB2] = React.useState(false);
-  const [options, setOptions] = React.useState({
-    optionsOne: [],
-    optionsTwo: [],
-  });
-  const [setPhaseOne] = React.useState({});
-  const [graphic, setGraphic] = React.useState({});
-  const [inicialGraphic, setInicialGraphic] = React.useState({});
-  const [experimentData, setExperimentData] = React.useState([]);
-  const [liberateRoomValue, setLiberateRoomValue] = React.useState(false);
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [experimentData, setExperimentData] = useState([]);
+  const [lastSlide, setLastSlide] = useState(false);
+  const carouselRef = useRef(null);
 
   React.useEffect(() => {
-    console.log(experimentData.title);
-  }, [experimentData]);
-
-  React.useEffect(() => {
-    getOptions().then((response) => {
-      setOptions({
-        optionsOne: response.data.optionsOne,
-        optionsTwo: response.data.optionsTwo,
-      });
-    });
-    getPhaseOne().then((response) => {
-      setPhaseOne(response.data);
-    });
-    getDataByPin(pin).then((response) => {
+    // Busca os dados do experimentos
+    getExperimentByPin(pin).then((response) => {
       setExperimentData(response.data.experiment);
     });
-  }, [setPhaseOne, pin]);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      getDataByPin(pin).then((response) => {
-        setLiberateRoomValue(response.data.experiment.liberateRoom);
-      });
-    }, 1000);
-    return () => clearInterval(interval);
   }, [pin]);
 
-  const handleSelectOptionB1 = (option) => {
-    setSelectedOptionsB1({ [option.value]: true });
+  // Função para lidar com a seleção de uma alternativa
+  const handleOptionSelect = (questionIndex, selectedAlternative) => {
+    setSelectedOptions((prevSelectedOptions) => ({
+      ...prevSelectedOptions,
+      [questionIndex]: selectedAlternative, // Armazena a alternativa selecionada para a pergunta específica
+    }));
   };
 
-  const handleSelectOptionB2 = (option) => {
-    setSelectedOptionsB2({ [option.value]: true });
-  };
-
-  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
-  const [answerOneStorage, setAnswerOneStorage] = React.useState("");
-  const [answerTwoStorage, setAnswerTwoStorage] = React.useState("");
-
-  const getDatas = () => {
-    getInicialGraphic(idStudent).then((response) => {
-      setInicialGraphic(response.data);
-    });
-    getGraphic(idStudent).then((response) => {
-      setGraphic(response.data);
-    });
-  };
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      getDatas();
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleButtonDisabled = () => {
-    const answerOneString = Object.keys(selectedOptionsB1)[0].toString();
-    const answerTwoString = Object.keys(selectedOptionsB2)[0].toString();
-    const answerOne = options.optionsOne.find(
-      (option) => option.value === answerOneString
-    );
-    const answerTwo = options.optionsTwo.find(
-      (option) => option.value === answerTwoString
-    );
-    const answer = {
-      answerOne: answerOne.label,
-      answerTwo: answerTwo.label,
-    };
-    setAnswerOneStorage(answerOne.label);
-    setAnswerTwoStorage(answerTwo.label);
-    postAnswer(idStudent, answer).then(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Resposta enviada com sucesso!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      getDatas();
-      setIsButtonDisabled(true);
-    });
-  };
-
-  const [selectedOptionsB1, setSelectedOptionsB1] = React.useState({});
-
-  const [selectedOptionsB2, setSelectedOptionsB2] = React.useState({});
-
-  React.useEffect(() => {
-    if (
-      Object.keys(selectedOptionsB1).length > 0 &&
-      Object.keys(selectedOptionsB2).length > 0
-    ) {
-      setIsButtonDisabled(false);
-    } else {
-      setIsButtonDisabled(true);
+  // Função para avançar para o próximo slide
+  const goToNext = () => {
+    // Verifica se é o ultimo slide
+    let indice = currentSlideIndex + 1;
+    if (indice === simulado.length) {
+      setLastSlide(true);
     }
-  }, [selectedOptionsB1, selectedOptionsB2]);
 
-  const getSelectedLabelB1 = () => {
-    const selectedValue = Object.keys(selectedOptionsB1)[0];
-    const selectedOption = options.optionsOne.find(
-      (option) => option.value === selectedValue
-    );
-    return selectedOption ? selectedOption.label : "Nenhuma";
+    // Verifica se a pergunta atual foi respondida
+    if (selectedOptions[currentSlideIndex]) {
+      // Se existe uma opção para o índice atual
+      if (carouselRef.current) {
+        carouselRef.current.next();
+      }
+    }
   };
 
-  const getSelectedLabelB2 = () => {
-    const selectedValue = Object.keys(selectedOptionsB2)[0];
-    const selectedOption = options.optionsTwo.find(
-      (option) => option.value === selectedValue
-    );
-    return selectedOption ? selectedOption.label : "Nenhuma";
+  // Callback que é disparado após a mudança de slide no Carousel
+  const onSlideChange = (current) => {
+    setCurrentSlideIndex(current); // Atualiza o índice do slide atual
   };
+
+  // Verifica se a pergunta atual tem uma alternativa selecionada
+  const isCurrentQuestionAnswered = selectedOptions[currentSlideIndex];
 
   return (
     <Base
@@ -152,182 +63,101 @@ const ExperimentTemperature = () => {
       Icon={<MdOutlineBiotech />}
       goToName={`Sala do experimento: ${pin}`}
       titlepage={`${experimentData.title}`}
-      nameofuser={storedName}
       descriptionPage={`${experimentData.description} Considerando o caso clínico, responda as perguntas a seguir.`}
       children={
-        <div className="divCol">
-          {liberateRoomValue && (
-            <Card className="notaCard">
-              <h3 className="titleNotaCard">
-                YOUR GRADE WAS:{" "}
-                <b className="pontosNotaCard">{graphic?.data?.nota} PONTOS</b>
-              </h3>
-            </Card>
-          )}
-          <div className="divCards">
-            <Card className="card-chartsExperiment">
-              <p className="subtitle-cardExperiment">
-                1. Após a alimentação, especialmente quando baseada em
-                carboidratos, ocorre um aumento na quantidade de glicose no
-                sangue do animal. Qual é o principal hormônio liberado e seu
-                órgão responsável, em resposta a esse aumento?
-              </p>
-              <div className="contentChoices-cardExperiment">
-                <div className="contentB1-Choices">
-                  {!showB1 && (
-                    <div className="content-ButtonAndLabel">
-                      {!liberateRoomValue && (
-                        <button
-                          onClick={() => setShowB1(true)}
-                          className="button-Experiment"
+        <Card className={styles.cardChartsExperiment}>
+          <Carousel
+            ref={carouselRef}
+            arrows={false}
+            dots={false}
+            infinite={false}
+            // Adiciona o callback afterChange para atualizar o slide atual
+            afterChange={onSlideChange}
+          >
+            {simulado.map((quest, idx) => (
+              <div key={idx} className={styles.cardContainer}>
+                <p className={styles.pergunta}>{quest.Pergunta}</p>
+                <div className={styles.cardChoices}>
+                  <button className={styles.buttonExperiment}>
+                    Escolha uma alternativa
+                  </button>
+                  <div className={styles.minHeight}>
+                    {quest.Alternativas.map((item, index) => (
+                      <div key={index}>
+                        <CardChecked
+                          // Passa o índice da pergunta e a alternativa para a função de seleção
+                          handleClick={() => handleOptionSelect(idx, item)}
+                          // Verifica se a alternativa atual é a selecionada para esta pergunta
+                          isClicked={selectedOptions[idx] === item}
                         >
-                          OP1
-                        </button>
-                      )}
-                      <label>
-                        Choice: <b>{getSelectedLabelB1()}</b>
-                      </label>
-                    </div>
-                  )}
-                  {showB1 && (
-                    <>
-                      {!liberateRoomValue && (
-                        <button
-                          onClick={() => setShowB1(false)}
-                          className="button-Experiment"
-                        >
-                          OP1
-                        </button>
-                      )}
-                      <div className="min-height-answer">
-                        {options.optionsOne.map((item, index) => (
-                          <div key={index}>
-                            <CardChecked
-                              handleClick={() => handleSelectOptionB1(item)}
-                              isClicked={selectedOptionsB1[item.value]}
-                            >
-                              {item.label}
-                            </CardChecked>
-                          </div>
-                        ))}
+                          {item}
+                        </CardChecked>
                       </div>
-                    </>
-                  )}
+                    ))}
+                  </div>
                 </div>
-                <div className="contentB1-Choices">
-                  {!showB2 && (
-                    <div className="content-ButtonAndLabel">
-                      {!liberateRoomValue && (
-                        <button
-                          onClick={() => setShowB2(true)}
-                          className="button-Experiment"
-                        >
-                          OP2
-                        </button>
-                      )}
-                      <label>
-                        Choice: <b>{getSelectedLabelB2()}</b>
-                      </label>
-                    </div>
-                  )}
-                  {showB2 && (
-                    <>
-                      {!liberateRoomValue && (
-                        <button
-                          onClick={() => setShowB2(false)}
-                          className="button-Experiment"
-                        >
-                          OP2
-                        </button>
-                      )}
-                      <div className="min-height-answer">
-                        {options.optionsTwo.map((item, index) => (
-                          <div key={index}>
-                            <CardChecked
-                              handleClick={() => handleSelectOptionB2(item)}
-                              isClicked={selectedOptionsB2[item.value]}
-                            >
-                              {item.label}
-                            </CardChecked>
-                          </div>
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
-                <div className="contentB1-Choices">
+                <div className={styles.contentChoices}>
                   <button
-                    className="btnRealizarExperimento"
-                    disabled={isButtonDisabled}
-                    onClick={handleButtonDisabled}
+                    className={styles.btnRealizarExperimento}
+                    onClick={goToNext}
+                    disabled={!isCurrentQuestionAnswered}
                   >
-                    {liberateRoomValue
-                      ? "Experiment performed"
-                      : "Perform Experiment"}
+                    Próximo
                   </button>
                 </div>
               </div>
-            </Card>
-            <Card className="card-chartsExperiment">
-              {liberateRoomValue && (
-                <>
-                  {answerOneStorage === "Hipotálamo" &&
-                  answerTwoStorage === "ADH" ? (
-                    <div>
-                      <h3>
-                        You got both answers right., {answerOneStorage} 80% e{" "}
-                        {answerTwoStorage} 20%
-                      </h3>
-                    </div>
-                  ) : answerOneStorage === "Hipotálamo" ? (
-                    <div>
-                      <h3>
-                        You got the first answer right, {answerOneStorage} 80%
-                      </h3>
-                    </div>
-                  ) : answerTwoStorage === "ADH" ? (
-                    <div>
-                      <h3>
-                        You got the second answer right, {answerTwoStorage} 20%
-                      </h3>
-                    </div>
-                  ) : (
-                    <div>
-                      <h3>You haven't got any answers right yet.</h3>
-                    </div>
-                  )}
-                </>
-              )}
-              {!liberateRoomValue && (
-                <>
-                  <h3>Waiting for the result to be released by the teacher</h3>
-                </>
-              )}
-              <div className="contentChart-cardExperiment">
-                {(liberateRoomValue && graphic?.data?.expectedValue) ||
-                (!liberateRoomValue && inicialGraphic?.data?.expectedValue) ? (
-                  <WaterfallChart
-                    experimentData={
-                      liberateRoomValue
-                        ? graphic?.data.expectedValue
-                        : inicialGraphic?.data.expectedValue
-                    }
-                    studentData={
-                      liberateRoomValue
-                        ? graphic?.data.studentValue
-                        : inicialGraphic?.data.studentValue
-                    }
-                  />
-                ) : (
-                  <h3>Loading graph...</h3>
-                )}
+            ))}
+            {lastSlide && (
+              <div className={styles.cardContainer}>
+                <p className={styles.pergunta}>
+                  Sua resposta foi enviada, aguarde a liberação do resultado...
+                </p>
               </div>
-            </Card>
-          </div>
-        </div>
+            )}
+          </Carousel>
+        </Card>
       }
     />
   );
 };
+
+const simulado = [
+  {
+    Pergunta:
+      "1. Após a alimentação, especialmente quando baseada em carboidratos, ocorre um aumento na quantidade de glicose no sangue do animal. Qual é o principal hormônio liberado e seu órgão responsável, em resposta a esse aumento?",
+    RespostaCorreta: "homonio tal",
+    Alternativas: [
+      "hormonio a",
+      "hormonio b",
+      "hormonio c",
+      "hormonio tal",
+      "hormonio d",
+    ],
+  },
+  {
+    Pergunta:
+      "2. Considerando o tempo decorrido desde a última refeição (Jejum), ou a própria atividade física natural do animal. Qual será a resposta fisiológica do animal, sem nenhuma patogenia?",
+    RespostaCorreta: "homonio tall", // Corrigi aqui para bater com as alternativas
+    Alternativas: [
+      "hormonio aa",
+      "hormonio bb",
+      "hormonio cc",
+      "hormonio tall",
+      "hormonio dd",
+    ],
+  },
+  {
+    Pergunta:
+      "3. Pipoca experimentou um nível intenso de estresse devido à ida ao hospital e ao exame físico realizado. Como consequência, houve um aumento significativo em sua glicemia. O que justifica esse aumento na glicemia e qual substância é responsável por promovê-lo?",
+    RespostaCorreta: "homonio tal",
+    Alternativas: [
+      "hormonio a",
+      "hormonio b",
+      "hormonio c",
+      "hormonio tal",
+      "hormonio d",
+    ],
+  },
+];
 
 export default ExperimentTemperature;

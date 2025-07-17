@@ -20,7 +20,7 @@ export default [
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
-      import: importPlugin, // ✅ Corrigido aqui
+      import: importPlugin,
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -31,7 +31,6 @@ export default [
         { allowConstantExport: true },
       ],
 
-      // 🚀 Regras para ordenar os imports:
       "import/order": [
         "error",
         {

@@ -1,4 +1,4 @@
-.contentChoices-cardExperiment {
+.cardChoices {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,39 +6,33 @@
   padding-top: 0em;
 }
 
-.contentChart-cardExperiment {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.title-cardExperiment {
+.titleCardExperiment {
   font-size: 20px;
   font-weight: 500;
   color: #000000;
   margin-bottom: 5px;
 }
 
-.description-cardExperiment {
+.descriptionCardExperiment {
   font-size: 15px;
   font-weight: 400;
   color: #707070;
 }
-.subtitle-cardExperiment {
+.subtitleCardExperiment {
   font-size: 17px;
   font-weight: 600;
   color: #000000;
   margin-top: 10px;
 }
 
-.contentB1-Choices {
+.contentChoices {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
   width: 100%;
 }
-.content-ButtonAndLabel {
+.contentButtonAndLabel {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -46,14 +40,17 @@
   width: 100%;
 }
 
-.card-chartsExperiment {
+.cardChartsExperiment {
   display: flex;
   border: none;
   border-radius: 15px;
   box-shadow: rgb(152, 189, 231) 0px 5px 20px;
   margin-bottom: 20px;
-  cursor: pointer;
-  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+}
+.cardContainer {
+  margin-bottom: 30px;
 }
 
 .divCards {
@@ -64,7 +61,7 @@
   width: 100%;
 }
 
-.button-Experiment {
+.buttonExperiment {
   display: flex;
   align-items: center;
   width: 100%;
@@ -77,6 +74,7 @@
   cursor: pointer;
   padding: 10px;
   margin-top: 10px;
+  cursor: text;
 }
 
 .btnRealizarExperimento {
@@ -107,8 +105,9 @@
   margin-bottom: 20px;
 }
 
-.min-height-answer {
+.minHeight {
   max-height: 200px;
+  width: 100%;
   overflow-y: scroll;
   gap: 10px;
 }
@@ -127,14 +126,14 @@
   box-shadow: rgb(152, 231, 194) 0px 5px 10px;
   transform: scale(1);
 }
-.titleNotaCard{
+.titleNotaCard {
   display: flex;
   align-items: center;
   font-size: 20px;
   font-weight: 500;
   color: #ffffff;
 }
-.pontosNotaCard{
+.pontosNotaCard {
   display: flex;
   align-items: center;
   font-size: 25px;
@@ -143,8 +142,31 @@
   margin-left: 10px;
 }
 
+.carouselWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Altere a cor das setas padrão */
+.slick-prev::before,
+.slick-next::before {
+  color: black; /* azul padrão do Ant Design */
+  font-size: 30px; /* opcional: aumenta o tamanho da seta */
+}
+
+.slick-active button::after {
+  color: #000000;
+  background-color: #000000;
+}
+.slick-dots.slick-dots-bottom Li button {
+  color: black;
+  background-color: red;
+}
+
 @media screen and (max-width: 768px) {
-  .card-chartsExperiment {
+  .cardChartsExperiment {
     width: 100%;
   }
   .divCards {

@@ -1,11 +1,12 @@
-import "./style.css";
 import { Card, Input, Button } from "antd";
-import LogoHA from "assets/logoHA.png";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import { registerStudent } from "../../../../src/services/routes/api/AuthStudent";
+import styles from "./styles.module.css";
+
+import LogoHA from "@/assets/logoHA.png";
+import { createStudent } from "@/services/routes/api/AuthStudent";
 
 export default function LoginPin() {
   const [pin, setPin] = React.useState("");
@@ -39,7 +40,7 @@ export default function LoginPin() {
         name: name,
         pin: pin,
       };
-      registerStudent(body)
+      createStudent(body)
         .then((response) => {
           const student = response.data.student;
           localStorage.setItem("idStudent", student._id);
@@ -61,25 +62,25 @@ export default function LoginPin() {
   }
 
   return (
-    <div className="container-LoginPin">
-      <Card className="card-loginPin">
-        <div className="content-loginPin">
-          <img src={LogoHA} alt="Logo" className="logo-loginpin" />
+    <div className={styles.containerLoginPin}>
+      <Card className={styles.cardloginPin}>
+        <div className={styles.contentloginPin}>
+          <img src={LogoHA} alt="Logo" className={styles.logologinpin} />
           <Input
             placeholder="ROOM PIN"
-            className="input-loginPin"
+            className={styles.inputloginPin}
             value={pin}
             onChange={(e) => setPin(e.target.value)}
             maxLength={4}
           />
           <Input
             placeholder="STUDENT NAME"
-            className="input-loginPin"
+            className={styles.inputloginPin}
             value={name}
             onChange={(e) => setName(e.target.value)}
             maxLength={30}
           />
-          <Button className="button-loginPin" onClick={handleLogin}>
+          <Button className={styles.buttonloginPin} onClick={handleLogin}>
             Enter the Room
           </Button>
           <span>

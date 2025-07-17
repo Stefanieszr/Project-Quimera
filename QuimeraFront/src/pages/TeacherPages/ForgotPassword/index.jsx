@@ -3,12 +3,12 @@ import LogoHA from "assets/logoHA.png";
 import { useState, useEffect } from "react";
 import Alert from "sweetalert2";
 
+import styles from "./styles.module.css";
+
 // import { useNavigate } from "react-router-dom";
 import BaseAuth from "@/components/BaseAuth";
 import ErrorMessageInput from "@/components/ErrorMessageInput";
 import SucessMessageInput from "@/components/SucessMessageInput";
-
-import "./styles.css";
 
 const ForgotPassword = () => {
   // const navigate = useNavigate();
@@ -51,27 +51,32 @@ const ForgotPassword = () => {
 
   return (
     <BaseAuth>
-      <Card className="card-login">
-        <div className="center">
-          <img src={LogoHA} alt="logo" name="logo" className="logo-login" />
+      <Card className={styles.cardLogin}>
+        <div className={styles.center}>
+          <img
+            src={LogoHA}
+            alt="logo"
+            name="logo"
+            className={styles.logoLogin}
+          />
         </div>
-        <h3 className="title-login">Você esqueceu a sua senha?</h3>
-        <span className="subtitle-login">
+        <h3 className={styles.titleLogin}>Você esqueceu a sua senha?</h3>
+        <span className={styles.subtitleLogin}>
           Não se preocupe com isso, basta confirmar seu e-mail abaixo e iremos
           enviar um link em seu e-mail para redefinir sua senha.
         </span>
-        <span className="label-input">Confirme o seu E-mail:</span>
+        <span className={styles.labelInput}>Confirme o seu E-mail:</span>
         <Input
           type="email"
           placeholder="example@example.com"
           id="email"
-          className="input-login"
+          className={styles.inputLogin}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <ErrorMessageInput> {emailError}</ErrorMessageInput>
         <SucessMessageInput>{emailSucess}</SucessMessageInput>
-        <button className="button-login" onClick={recoverPassword}>
+        <button className={styles.buttonLogin} onClick={recoverPassword}>
           Recuperar minha senha
         </button>
       </Card>

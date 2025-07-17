@@ -11,11 +11,35 @@
   gap: 20px;
 }
 
+.cardIntroduction {
+  border-radius: 15px;
+}
+
 .titleIntro {
   font-size: 1.5em;
   font-weight: 700;
   color: #ffffff;
   text-transform: uppercase;
+}
+
+.textSpan {
+  font-size: 18px;
+  font-weight: 400;
+  color: #3c3c3c;
+}
+.titlesCC {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.itemsCC {
+  color: #000000;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .btnIntro {
@@ -31,7 +55,7 @@
   align-items: center;
   text-align: center;
   text-transform: uppercase;
-  gap: 15px
+  gap: 15px;
 }
 
 .btnIntro:hover {
@@ -49,25 +73,24 @@
 }
 
 .Orange {
-    background-color: #f2994a;
-    box-shadow: rgb(185, 241, 179) 0px 5px 20px;
-  }
-  
-  .Orange:hover {
-    box-shadow: rgb(233, 201, 115) 0px 5px 50px;
-    background-color: #f58320;
-  }
-  
-  .Yellow {
-    background-color: #f2c94c;
-    box-shadow: rgb(185, 241, 179) 0px 5px 20px;
-  }
-  
-  .Yellow:hover {
-    box-shadow: rgb(233, 225, 115) 0px 5px 50px;
-    background-color: #fac31e;
-  }
-  
+  background-color: #f2994a;
+  box-shadow: rgb(185, 241, 179) 0px 5px 20px;
+}
+
+.Orange:hover {
+  box-shadow: rgb(233, 201, 115) 0px 5px 50px;
+  background-color: #f58320;
+}
+
+.Yellow {
+  background-color: #f2c94c;
+  box-shadow: rgb(185, 241, 179) 0px 5px 20px;
+}
+
+.Yellow:hover {
+  box-shadow: rgb(233, 225, 115) 0px 5px 50px;
+  background-color: #fac31e;
+}
 
 @media screen and (max-width: 768px) {
   .divButtonsIntro {

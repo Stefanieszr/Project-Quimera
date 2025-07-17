@@ -1,14 +1,14 @@
 import { Card, Row, Col } from "antd";
 import { useState } from "react";
 import { MdOutlineBiotech } from "react-icons/md";
-import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import Alert from "sweetalert2";
 
-import Announcement from "./components/Announcement";
+import styles from "./styles.module.css";
 
+import Announcement from "@/components/Announcement";
 import Base from "@/components/BaseLayout";
-import { postExperiment } from "@/services/routes/api/Experiment";
+import { createExperiment } from "@/services/routes/api/Experiment";
 
 const experimentDescriptions = {
   "Variação de Água Corporal":
@@ -44,7 +44,7 @@ const NewExperiment = () => {
           description: description,
         };
 
-        postExperiment(idTeacher, body).then((response) => {
+        createExperiment(idTeacher, body).then((response) => {
           Alert.fire({
             icon: "success",
             title: "Experimento criado com sucesso!",
@@ -64,25 +64,27 @@ const NewExperiment = () => {
     <Base
       goTo={"/search"}
       Icon={<MdOutlineBiotech />}
-      goToName={"New experiment"}
-      titlepage={"Crie um novo experimento"}
+      goToName={"Novo experimento"}
       children={
         <Row>
           <Col xs={24} xl={24}>
-            <Card className="card-forms">
-              <h4 className="center forms-title">
+            <Card className={styles.cardForms}>
+              <h4 className={`${styles.center} ${styles.formsTitle}`}>
                 Vamos começar outro experimento?
               </h4>
-              <span className="center forms-description">
+              <span className={`${styles.center} ${styles.formsDescription}`}>
                 Preencha o formulário abaixo para realizar um novo experimento
               </span>
-              <label htmlFor="experiment" className="start label-input-forms">
+              <label
+                htmlFor="experiment"
+                className={`${styles.start} ${styles.labelInputForms}`}
+              >
                 Título do experimento
               </label>
               <select
                 id="experiment"
                 name="experiment"
-                className="select-forms"
+                className={styles.selectForms}
                 value={experiment}
                 onChange={(e) => {
                   const selectedTitle = e.target.value;
@@ -103,27 +105,30 @@ const NewExperiment = () => {
                 ))}
               </select>
               <label
-                htmlFor="search-description"
-                className="start label-input-forms"
+                htmlFor="searchDescription"
+                className={`${styles.start} ${styles.labelInputForms}`}
               >
                 Breve descrição do seu experimento:
               </label>
               <textarea
-                id="search-description"
-                name="search-name"
-                className="start input-forms"
+                id="searchDescription"
+                name="searchDescription"
+                className={`${styles.start} ${styles.inputForms}`}
                 placeholder="Selecione um experimento"
                 readOnly
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <label htmlFor="search-name" className="start label-input-forms">
+              <label
+                htmlFor="search-name"
+                className={`${styles.start} ${styles.labelInputForms}`}
+              >
                 Título da atividade:
               </label>
               <input
                 id="search-name"
                 name="search-name"
-                className="start input-forms"
+                className={`${styles.start} ${styles.inputForms}`}
                 placeholder="Ex: Experimento com a turma 5A"
                 value={searchName}
                 onChange={(e) => setSearchName(e.target.value)}
@@ -132,9 +137,9 @@ const NewExperiment = () => {
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <button
                   onClick={() => handleSearch()}
-                  className="center btn-save"
+                  className={`${styles.center} ${styles.btnSave}`}
                 >
-                  Save new experiment
+                  Criar novo experimento
                 </button>
               </div>
               <Announcement />

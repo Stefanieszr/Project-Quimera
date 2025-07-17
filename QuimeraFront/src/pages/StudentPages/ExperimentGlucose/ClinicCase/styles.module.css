@@ -6,9 +6,9 @@
   padding: 0px;
 }
 
-.imgcatsDiv {
+.imgDogDiv {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
   height: 100%;
@@ -91,4 +91,17 @@
   color: #000000;
   font-size: 18px;
   font-weight: 400;
+}
+
+@media screen and (max-width: 768px) {
+  .imgDogDiv {
+    justify-content: center;
+    align-items: start;
+    margin: 0;
+    padding: 0px;
+  }
+  .imgDog {
+    width: 50%;
+    height: 100%;
+  }
 }

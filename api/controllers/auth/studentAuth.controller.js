@@ -8,7 +8,7 @@ exports.createStudent = async (req, res) => {
 
     const experiment = await Experiment.findOne({ pin });
     if (!experiment) {
-      throw new Error("Invalid PIN.");
+      return res.status(400).send({ message: "Invalid PIN." });
     }
 
     const student = new Student({
@@ -18,6 +18,18 @@ exports.createStudent = async (req, res) => {
       answerTwo: null,
     });
     await student.save();
+
+    // --- LÓGICA WEBSOCKET: Notificar a entrada de novo aluno ---
+    if (req.io) {
+      // Busca a lista atualizada de alunos para esta sala
+      const updatedStudents = await Student.find({ pin: pin });
+      // Emite o evento 'student_update' para todos na sala com este PIN
+      req.io.to(pin).emit("student_update", updatedStudents);
+      console.log(
+        `Socket.IO: Aluno ${name} entrou na sala ${pin}. Emitindo 'student_update'.`
+      );
+    }
+    // --- FIM LÓGICA WEBSOCKET ---
 
     res.status(201).send({
       message: "Student created successfully.",
@@ -32,14 +44,17 @@ exports.createStudent = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    if (err.message === "Invalid PIN .") {
+    if (res.headersSent) {
+      // Para evitar "Cannot set headers after they are sent to the client"
+      return;
+    }
+    if (err.message === "Invalid PIN.") {
       res.status(400).send({ message: "Invalid PIN." });
     } else {
       res.status(500).send({ message: "Error creating student." });
     }
   }
 };
-
 exports.getStudentByPin = async (req, res) => {
   try {
     const pin = req.params.pin;
@@ -75,8 +90,24 @@ exports.updateStudentAnswers = async (req, res) => {
     );
 
     if (!updatedStudent) {
-      throw new Error("Student not found.");
+      return res.status(404).send({ message: "Student not found." }); // Retornar 404 aqui
     }
+
+    // --- LÓGICA WEBSOCKET: Notificar atualização de respostas do aluno ---
+    if (req.io) {
+      // Buscar novamente a lista completa de alunos para a sala
+      // Isso garante que o frontend tenha a lista mais recente, incluindo o aluno atualizado
+      const updatedStudentsInRoom = await Student.find({
+        pin: updatedStudent.pin,
+      });
+      req.io
+        .to(updatedStudent.pin)
+        .emit("student_update", updatedStudentsInRoom);
+      console.log(
+        `Socket.IO: Respostas do aluno ${updatedStudent.name} na sala ${updatedStudent.pin} atualizadas. Emitindo 'student_update'.`
+      );
+    }
+    // --- FIM LÓGICA WEBSOCKET ---
 
     res.status(200).send({
       message: "Student answers updated successfully.",
@@ -90,6 +121,10 @@ exports.updateStudentAnswers = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
+    if (res.headersSent) {
+      // Para evitar "Cannot set headers after they are sent to the client"
+      return;
+    }
     if (err.message === "Student not found.") {
       res.status(404).send({ message: "Student not found." });
     } else {

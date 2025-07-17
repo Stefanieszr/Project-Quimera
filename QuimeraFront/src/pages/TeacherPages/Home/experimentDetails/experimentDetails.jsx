@@ -4,12 +4,15 @@ import WaterfallChart from "pages/StudentPages/WaterfallChart";
 import React from "react";
 import { MdOutlineDashboard } from "react-icons/md";
 import { useParams } from "react-router-dom";
-import { getStudentByPin } from "services/routes/api/AuthStudent";
-import { findExperimentById } from "services/routes/api/Experiment";
-import { getTotalCorrectGraphic } from "services/routes/api/Experiment";
-import { formatDate } from "utils/formats";
 
 import styles from "./styles.module.css";
+
+import { getStudentByPin } from "@/services/routes/api/AuthStudent";
+import {
+  getGraphic,
+  getExperimentById,
+} from "@/services/routes/api/Experiment";
+import { formatDate } from "@/utils/formats";
 
 const ExperimentDetailsTeacher = () => {
   const { id } = useParams();
@@ -24,7 +27,7 @@ const ExperimentDetailsTeacher = () => {
 
   // Busca os detalhes do experimentos
   React.useEffect(() => {
-    findExperimentById(teacherId, id).then((response) => {
+    getExperimentById(teacherId, id).then((response) => {
       setResponseDetails(response.data.experiment);
       setPin(response.data.experiment.pin);
     });
@@ -57,7 +60,7 @@ const ExperimentDetailsTeacher = () => {
   React.useEffect(() => {
     if (selectedStudentId) {
       console.log(selectedStudentId);
-      getTotalCorrectGraphic(selectedStudentId)
+      getGraphic(selectedStudentId)
         .then((response) => {
           setResponseGraphic(response.data);
         })
@@ -83,7 +86,7 @@ const ExperimentDetailsTeacher = () => {
         children={
           <div className={styles.cardsColSpace}>
             <Card className={styles.pageCardHome}>
-              <div classBame={styles.ColDivCard}>
+              <div className={styles.ColDivCard}>
                 <div className={styles.colDiv}>
                   <h3>Pin da sala do experimento:</h3>
                   <span>{responseDetails.pin}</span>

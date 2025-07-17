@@ -3,8 +3,9 @@ import LogoHA from "assets/logoHA.png";
 import { useContext, useRef } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import "./styles.css";
 import Alert from "sweetalert2";
+
+import styles from "./styles.module.css";
 
 import BaseAuth from "@/components/BaseAuth";
 import TeacherContext from "@/context/Users/Teacher";
@@ -58,29 +59,29 @@ const Login = () => {
 
   return (
     <BaseAuth>
-      <Card className="card-login">
-        <div className="center">
-          <img src={LogoHA} name="logo" className="logo-login" />
+      <Card className={styles.cardLogin}>
+        <div className={styles.center}>
+          <img src={LogoHA} name="logo" className={styles.logoLogin} />
         </div>
-        <h3 className="title-login">Welcome to the platform!</h3>
-        <span className="subtitle-login">
+        <h3 className={styles.titleLogin}>Welcome to the platform!</h3>
+        <span className={styles.subtitleLogin}>
           Fill out the form to log in to the platform.
         </span>
         <form>
-          <span className="label-input">E-mail:</span>
+          <span className={styles.labelInput}>E-mail:</span>
           <Input
             ref={refEmail}
             type="email"
             placeholder="example@example.com"
             id="email"
-            className="input-login"
+            className={styles.inputLogin}
           />
-          <span className="label-input">Password:</span>
+          <span className={styles.labelInput}>Password:</span>
           <Input.Password
             ref={refPassword}
             placeholder="*********"
             id="password"
-            className="input-login"
+            className={styles.inputLogin}
           />
         </form>
         {/* <span
@@ -90,14 +91,14 @@ const Login = () => {
           <AiOutlineKey style={{ marginRight: 5 }} />
           Esqueceu sua senha?
         </span> */}
-        <button className="button-login" onClick={() => handleLogin()}>
+        <button className={styles.buttonLogin} onClick={() => handleLogin()}>
           Login
         </button>
-        <span className="forgot-password">
+        <span className={styles.forgotPassword}>
           <AiOutlineUserAdd style={{ marginRight: 5 }} />
-          Don't have an account yet?
-          <Link to="/register" className="link-register">
-            Create account
+          Ainda não tem uma conta?
+          <Link to="/register" className={styles.linkRegister}>
+            Criar uma conta
           </Link>
         </span>
       </Card>

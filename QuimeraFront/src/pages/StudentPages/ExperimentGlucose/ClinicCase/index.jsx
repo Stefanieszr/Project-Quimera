@@ -1,11 +1,12 @@
-import "./styles.css";
 import { Row, Col, Card, Button } from "antd";
-import Cachorro from "assets/cachorro.png";
-import Base from "components/BaseLayoutStudent";
 import { MdOutlineBiotech } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-// import Gato1 from "../../../gato1.jpg";
-// import Gato2 from "../../../gato2.jpg";
+
+import styles from "./styles.module.css";
+
+import Cachorro from "@/assets/cachorro.png";
+import Base from "@/components/BaseLayoutStudent";
+
 const ClinicCaseTemperature = () => {
   const { pin } = useParams();
   const navigate = useNavigate();
@@ -17,16 +18,15 @@ const ClinicCaseTemperature = () => {
     <Base
       goTo={"/"}
       Icon={<MdOutlineBiotech />}
-      goToName={"Clinical Case"}
-      titlepage={`Caso clínico do experimento: Sala ${pin}`}
+      goToName={`Caso clínico do experimento: Sala ${pin}`}
+      titlepage={`Animal: Pipoca – Quimera I `}
       nameofuser={storedName}
       children={
-        <Card className="cardCCWater">
+        <Card className={styles.cardCCWater}>
           <Row gutter={[32, 22]}>
             <Col xs={24} xl={12}>
-              <h1 className="titlesCCWater">Animal: Pipoca – Quimera I </h1>
-              <span className="expCCWater">
-                Explicação: O animal foi levado à clínica veterinária com queixa
+              <span className={styles.expCCWater}>
+                Pipoca, um cachorro, foi levado à clínica veterinária com queixa
                 de baixo ganho de peso, apesar de estar recebendo uma
                 alimentação de boa qualidade. Durante a consulta, foi observada
                 uma glicemia de 56 mg/dL, indicando um quadro de Diabetes
@@ -36,24 +36,16 @@ const ClinicCaseTemperature = () => {
                 que atividades extenuantes podem levar a quedas perigosas nos
                 níveis de glicose.{" "}
               </span>
-              <h2 className="titlesCCWater">Symptoms</h2>
-              <span className="expCCWater bold">
-                Os principais sintomas observados ou que podem ser associados a
-                esse quadro são:
-              </span>
-              <ul className="itemsCCWater">
+              <h2 className={styles.titlesCCWater}>Sintomas</h2>
+              <ul className={styles.itemsCCWater}>
                 <li>Perda de peso, mesmo com alimentação adequada</li>
                 <li>Fraqueza ou cansaço</li>
                 <li>Tremores ou letargia</li>
                 <li>Aumento na ingestão de água</li>
                 <li>Aumento na frequência urinária</li>
               </ul>
-              <h2 className="titlesCCWater">Causes</h2>
-              <span className="expCCWater bold">
-                As principais causas associadas ao desenvolvimento do Diabetes
-                Mellitus podem incluir:
-              </span>
-              <ul className="itemsCCWater">
+              <h2 className={styles.titlesCCWater}>Causas</h2>
+              <ul className={styles.itemsCCWater}>
                 <li>
                   Disfunção ou destruição das células pancreáticas produtoras de
                   insulina
@@ -65,23 +57,25 @@ const ClinicCaseTemperature = () => {
               </ul>
             </Col>
             <Col xs={24} xl={12}>
-              <div className="imgcatsDiv">
+              <div className={styles.imgDogDiv}>
                 <img
                   src={Cachorro}
                   alt="Imagem de um cachorro"
-                  className="imgDog"
+                  className={styles.imgDog}
                 />
               </div>
             </Col>
           </Row>
-          <div className="divButtonIniciate">
-            <h1 className="titleIniciate">Pronto para iniciar o tratamento?</h1>
-            <span className="descCCWater">
+          <div className={styles.divButtonIniciate}>
+            <h1 className={styles.titleIniciate}>
+              Pronto para iniciar o tratamento?
+            </h1>
+            <span className={styles.descCCWater}>
               A redução dos níveis de glicose no sangue desencadeará um controle
               homeostático rigoroso no organismo do animal{" "}
             </span>
             <Button
-              className="btnIniciate"
+              className={styles.btnIniciate}
               type="primary"
               onClick={navigateToExperiment}
             >

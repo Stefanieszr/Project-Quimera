@@ -12,24 +12,21 @@ const Announcement = () => {
         <Card className="announcement">
           <Row gutter={[32, 22]}>
             <Col xs={20} xl={18}>
-              <span className="descr-announcement">
-                After finishing your new experiment in the "New experiment" tab,
-                fill in the forum with the data correctly, and
-              </span>
+              <span className="descr-announcement"></span>
               <h3 className="title-announcement">
-                Don't forget to check out the Dashboard!
+                Não se esqueça de conferir o Dashboard!
               </h3>
               <span className="descr-announcement">
-                This platform was created with the aim of facilitating and
-                improving the performance of students and teachers in the areas
-                of biology, primarily animal.
+                Esta plataforma foi criada com o objetivo de facilitar e
+                melhorar o desempenho de alunos e professores nas áreas de
+                biologia, principalmente animal.
               </span>
               <button
                 className="gotodash"
                 onClick={() => navigate("/dashboard")}
               >
                 <GrPieChart style={{ marginRight: 10 }} />
-                Check the Dashboard
+                Verificar Dashboard
               </button>
             </Col>
             <Col xs={20} xl={6}>

@@ -4,11 +4,11 @@ import { RiUserHeartLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
+import styles from "./styles.module.css";
+
 import LogoHA from "@/assets/logoHA.png";
 import BaseAuth from "@/components/BaseAuth";
-import { registerTeacher } from "@/services/routes/api/AuthTeacher";
-
-import "./styles.css";
+import { createTeacher } from "@/services/routes/api/AuthTeacher";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ const Register = () => {
       return;
     }
     try {
-      await registerTeacher(name, email, password).then((response) => {
+      await createTeacher(name, email, password).then((response) => {
         setResponseUser(response.data);
       });
       Swal.fire({
@@ -76,59 +76,59 @@ const Register = () => {
 
   return (
     <BaseAuth>
-      <Card className="card-login">
-        <div className="center">
-          <img src={LogoHA} name="logo" className="logo-login" />
+      <Card className={styles.cardLogin}>
+        <div className={styles.center}>
+          <img src={LogoHA} name="logo" className={styles.logoLogin} />
         </div>
-        <h3 className="title-login">Welcome to the platform!</h3>
-        <span className="subtitle-login">
+        <h3 className={styles.titleLogin}>Welcome to the platform!</h3>
+        <span className={styles.subtitleLogin}>
           Fill out the form to create an account on the platform.
         </span>
-        <span className="label-input">Full Name:</span>
+        <span className={styles.labelInput}>Full Name:</span>
         <Input
           type="name"
           placeholder="Enter your full name..."
           id="name"
-          className="input-login"
+          className={styles.inputLogin}
           value={name}
           onChange={(e) => setName(e.target.value)}
           maxLength={100}
         />
-        <span className="label-input">E-mail:</span>
+        <span className={styles.labelInput}>E-mail:</span>
         <Input
           type="email"
           placeholder="example@example.com"
           id="email"
-          className="input-login"
+          className={styles.inputLogin}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           maxLength={100}
         />
-        <span className="label-input">Password:</span>
+        <span className={styles.labelInput}>Password:</span>
         <Input.Password
           placeholder="Create one password..."
           id="password"
-          className="input-login"
+          className={styles.inputLogin}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           maxLength={30}
         />
-        <span className="label-input">Confirm the password:</span>
+        <span className={styles.labelInput}>Confirm the password:</span>
         <Input.Password
           placeholder="Confirm your password..."
           id="confirmPassword"
-          className="input-login"
+          className={styles.inputLogin}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           maxLength={30}
         />
-        <button className="button-login" onClick={() => saveUser()}>
+        <button className={styles.buttonLogin} onClick={() => saveUser()}>
           Create account
         </button>
-        <span className="forgot-password">
+        <span className={styles.forgotPassword}>
           <RiUserHeartLine style={{ marginRight: 5 }} />
           Already have an account?
-          <Link to="/loginTeacher" className="link-register">
+          <Link to="/loginTeacher" className={styles.linkRegister}>
             Login
           </Link>
         </span>

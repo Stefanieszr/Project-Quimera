@@ -1,11 +1,12 @@
 import { Card, Button } from "antd";
-import Base from "components/BaseLayoutStudent";
 import { AiOutlineExperiment } from "react-icons/ai";
 import { BsBook } from "react-icons/bs";
 import { MdOutlineBiotech } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 
 import styles from "./styles.module.css";
+
+import Base from "@/components/BaseLayoutStudent";
 
 const IntroductionTemperature = () => {
   const { pin } = useParams();
@@ -14,23 +15,17 @@ const IntroductionTemperature = () => {
   const navigateToClinicCase = () => {
     navigate(`/cliniccaseGlucose/${pin}`);
   };
-  const navigateToExperiment = () => {
-    navigate(`/experimentGlucose/${pin}`);
-  };
   return (
     <Base
       goTo={"/"}
       Icon={<MdOutlineBiotech />}
-      goToName={"Introduction to Matter"}
-      titlepage={`Introdução da matéria da termorregulação: ${pin}, `}
+      goToName={`Introdução a matéria de glicemia: Sala ${pin}`}
+      titlepage={`VARIAÇÃO DA GLICEMIA para "QUIMERA"`}
       nameofuser={storedName}
       children={
-        <Card className={styles.cardCCWater}>
+        <Card className={styles.cardIntroduction}>
           <div className={styles.divTextsintro}>
-            <h1 className={styles.titlesCCWater}>
-              VARIAÇÃO DA GLICEMIA para “QUIMERA”
-            </h1>
-            <span className={styles.expCCWater}>
+            <span className={styles.textSpan}>
               A manutenção de parâmetros fisiológicos dentro de limites bem
               definidos é essencial para a sobrevivência dos animais. Um dos
               parâmetros mais cruciais é a concentração de glicose no sangue,
@@ -45,8 +40,8 @@ const IntroductionTemperature = () => {
               produção e o consumo de glicose de acordo com as demandas do
               organismo.
             </span>
-            <h1 className={styles.titlesCCWater}>Especificando para: </h1>
-            <ul className={styles.itemsCCWater}>
+            <h1 className={styles.titlesCC}>Especificando para: </h1>
+            <ul className={styles.itemsCC}>
               <li>
                 <strong>AUMENTO DA GLICEMIA (Hiperglicemia):</strong> Pode
                 ocorrer após a ingestão de alimentos ricos em carboidratos,
@@ -69,7 +64,7 @@ const IntroductionTemperature = () => {
                 cortisol.
               </li>
             </ul>
-            <span className={styles.expCCWater}>
+            <span className={styles.textSpan}>
               O controle da glicemia é dinâmico e sensível a uma variedade de
               fatores internos e externos. Por exemplo, durante o exercício
               físico, o músculo consome mais glicose, levando à redução dos
@@ -79,7 +74,7 @@ const IntroductionTemperature = () => {
             </span>
             <br />
             <br />
-            <span className={styles.expCCWater}>
+            <span className={styles.textSpan}>
               Quando os mecanismos de controle falham, surgem distúrbios
               metabólicos importantes. Na hiperglicemia crônica, como ocorre no
               diabetes mellitus, há riscos de danos aos vasos sanguíneos, nervos
@@ -89,7 +84,7 @@ const IntroductionTemperature = () => {
             </span>
             <br />
             <br />
-            <span className={styles.expCCWater}>
+            <span className={styles.textSpan}>
               Além dos mecanismos fisiológicos, comportamentos também
               influenciam a regulação glicêmica, como a escolha dos alimentos,
               os horários das refeições, o nível de atividade física e até o
@@ -100,8 +95,8 @@ const IntroductionTemperature = () => {
           </div>
           <div className={styles.divButtonIntro}>
             <h1 className={styles.titleIntro}>
-              Do you want to study the clinical case before starting or jumping
-              into the experiment?
+              Estude o caso clínico e realize uma discussão em grupo antes de
+              iniciar o experimento.
             </h1>
             <div className={styles.divButtonsIntro}>
               <Button
@@ -110,16 +105,7 @@ const IntroductionTemperature = () => {
                 onClick={navigateToClinicCase}
               >
                 <BsBook />
-                Study clinical case
-              </Button>
-              <span className={styles.titleIntro}> Or </span>
-              <Button
-                className={`${styles.btnIntro} ${styles.Orange}`}
-                type="primary"
-                onClick={navigateToExperiment}
-              >
-                <AiOutlineExperiment />
-                Start the experiment
+                Caso clínico
               </Button>
             </div>
           </div>

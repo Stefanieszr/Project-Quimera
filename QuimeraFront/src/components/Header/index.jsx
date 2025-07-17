@@ -20,6 +20,15 @@ const HeaderComponent = () => {
     items: [
       {
         label: (
+          <Link to="/profile" className="menu-item">
+            <RiUserHeartLine style={{ marginRight: 10 }} />
+            Perfil
+          </Link>
+        ),
+        key: "1",
+      },
+      {
+        label: (
           <Link
             to="/loginTeacher"
             className="menu-item"
@@ -46,10 +55,18 @@ const HeaderComponent = () => {
       {
         label: (
           <Link to="/search" className="menu-item">
-            <MdOutlineBiotech style={{ marginRight: 10 }} /> Nova Pesquisa
+            <MdOutlineBiotech style={{ marginRight: 10 }} /> Criar Experimento
           </Link>
         ),
         key: "3",
+      },
+      {
+        label: (
+          <Link to="/profile" className="menu-item">
+            <RiUserHeartLine style={{ marginRight: 10 }} />
+            Perfil
+          </Link>
+        ),
       },
       {
         label: (
@@ -68,42 +85,40 @@ const HeaderComponent = () => {
   };
 
   return (
-    <>
-      <Header className="header-content">
-        <img
-          src={LogoHA}
-          name="logo"
-          alt="logo"
-          className="logo-header"
-          onClick={() => navigate("/dashboard")}
-        />
-        <button
-          className="buttonDashboard"
-          onClick={() => navigate("/dashboard")}
-        >
-          <MdOutlineDashboard style={{ marginRight: 10, fontSize: 20 }} />
-          Dashboard
-        </button>
-        <button className="buttonDashboard" onClick={() => navigate("/search")}>
-          <MdOutlineBiotech style={{ marginRight: 10, fontSize: 20 }} />
-          New Experiment
-        </button>
-        <Dropdown menu={menu} className="dropwdown">
-          <Space>
-            <Avatar
-              size={40}
-              className="Avatar-header"
-              icon={<RiUserHeartLine />}
-            />
-          </Space>
-        </Dropdown>
-        <Dropdown menu={menuresponsive} className="dropwdown-responsive">
-          <Space>
-            <AiOutlineMenu />
-          </Space>
-        </Dropdown>
-      </Header>
-    </>
+    <Header className="header-content">
+      <img
+        src={LogoHA}
+        name="logo"
+        alt="logo"
+        className="logo-header"
+        onClick={() => navigate("/dashboard")}
+      />
+      <button
+        className="buttonDashboard"
+        onClick={() => navigate("/dashboard")}
+      >
+        <MdOutlineDashboard style={{ marginRight: 10, fontSize: 20 }} />
+        Dashboard
+      </button>
+      <button className="buttonDashboard" onClick={() => navigate("/search")}>
+        <MdOutlineBiotech style={{ marginRight: 10, fontSize: 20 }} />
+        Criar Experimento
+      </button>
+      <Dropdown menu={menu} className="dropwdown">
+        <Space>
+          <Avatar
+            size={40}
+            className="Avatar-header"
+            icon={<RiUserHeartLine />}
+          />
+        </Space>
+      </Dropdown>
+      <Dropdown menu={menuresponsive} className="dropwdown-responsive">
+        <Space>
+          <AiOutlineMenu />
+        </Space>
+      </Dropdown>
+    </Header>
   );
 };
 

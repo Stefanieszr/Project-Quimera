@@ -5,117 +5,251 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import "./styles.css";
+import styles from "./styles.module.css";
+
 import BaseAuth from "@/components/BaseAuth";
 import { getStudentByPin } from "@/services/routes/api/AuthStudent";
 import {
-  findExperimentById,
+  getExperimentById,
+  createExperiment,
+  liberateResult,
   liberateRoom,
 } from "@/services/routes/api/Experiment";
+import {
+  setupSocketConnection,
+  listenForStudent,
+} from "@/services/socketService";
 
 export default function ExperimentRoom() {
   const navigate = useNavigate();
   const { idValue, pinValue } = useParams();
   const [students, setStudents] = React.useState([]);
-  const [responseExperiment, setResponseExperiment] = React.useState([]);
-  const [buttonClicked, setButtonClicked] = React.useState(false);
+  const [experimentDetails, setExperimentDetails] = React.useState([]);
+  const [buttonResult, setButtonResult] = React.useState(false);
+  const [buttonExperiment, setButtonExperiment] = React.useState(false);
+  const [buttonRemake, setButtonRemake] = React.useState(false);
+  const teacherId = localStorage.getItem("_idTeacher");
 
-  const handleGoBack = () => {
+  const confirmAction = (text, confirmText, actionFn) => {
     Swal.fire({
       icon: "warning",
       title: "Tem certeza?",
-      text: "Tem certeza que deseja sair da sala?",
+      text: text,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Sim, sair!",
+      confirmButtonText: confirmText,
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate("/dashboard");
-        localStorage.removeItem("buttonClicked");
+        actionFn();
       }
     });
   };
 
-  const teacherId = localStorage.getItem("_idTeacher");
+  // Hook para buscar alunos em tempo real
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      getStudentByPin(pinValue)
-        .then((response) => {
-          setStudents(response.data);
-        })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            console.log("Alunos não encontrados para esse pin.");
-          }
-        });
-      findExperimentById(teacherId, idValue).then((response) => {
-        setResponseExperiment(response.data.experiment);
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [idValue, pinValue, teacherId]);
+    console.log("estou aqui");
+    setupSocketConnection(pinValue);
+    console.log("estou aquiii");
+    listenForStudent((updatedStudents) => {
+      setStudents(updatedStudents);
+    });
+  }, [pinValue]);
 
-  const showSuccessAlert = () => {
-    Swal.fire({
-      icon: "Warning",
-      title: "Tem certeza?",
-      text: "Tem certeza que deseja liberar o resultado aos alunos?",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sim, liberar!",
-    }).then((result) => {
-      if (result.isConfirmed) {
+  // Hook para buscar detalhes do experimento
+  React.useEffect(() => {
+    const fetchExperimentDetails = async () => {
+      try {
+        const response = await getExperimentById(teacherId, idValue);
+        setExperimentDetails(response.data.experiment);
+
+        const alunos = await getStudentByPin(pinValue);
+        setStudents(alunos.data);
+      } catch (error) {
+        console.error("Erro ao buscar detalhes do experimento:", error);
         Swal.fire({
-          icon: "success",
-          title: "Resultado liberado com sucesso!",
+          icon: "error",
+          title: "Erro!",
+          text: "Não foi possível carregar os detalhes do experimento.",
         });
-        liberateRoom(idValue, { liberateRoom: true }).then((response) => {
-          console.log("response liberateRoom:", response);
-        });
-        setButtonClicked(true);
       }
+    };
+    fetchExperimentDetails();
+  }, [idValue, teacherId, pinValue]);
+
+  const handleGoBack = () => {
+    confirmAction("Tem certeza que deseja sair da sala?", "Sim, sair!", () => {
+      navigate("/dashboard");
+      localStorage.removeItem("buttonClicked");
     });
   };
+  const showAlertResult = () => {
+    confirmAction(
+      "Tem certeza que deseja liberar o resultado aos alunos?",
+      "Sim, liberar!",
+      async () => {
+        setButtonResult(true); // Desabilita o botão
+        try {
+          await liberateResult(idValue, { liberateResult: true });
+          Swal.fire({
+            icon: "success",
+            title: "Resultado liberado com sucesso!",
+          });
+        } catch (error) {
+          console.error("Erro ao liberar resultado:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Erro ao liberar resultado!",
+            text: "Tente novamente.",
+          });
+        } finally {
+          setButtonResult(false); // Reabilita o botão (para caso de erro, permitir nova tentativa)
+        }
+      }
+    );
+  };
+
+  const showAlertExperiment = () => {
+    confirmAction(
+      "Tem certeza que deseja liberar o experimento aos alunos?",
+      "Sim, liberar!",
+      async () => {
+        setButtonExperiment(true); // Desabilita o botão
+        try {
+          const body = {
+            liberateRoom: true,
+            pinRoom: pinValue,
+          };
+          const response = await liberateRoom(idValue, body);
+          console.log(response);
+          Swal.fire({
+            icon: "success",
+            title: "Experimento liberado com sucesso!",
+          });
+        } catch (error) {
+          console.error("Erro ao liberar experimento:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Erro ao liberar experimento!",
+            text: "Tente novamente.",
+          });
+        } finally {
+          setButtonExperiment(false); // Reabilita o botão
+        }
+      }
+    );
+  };
+
+  const showAlertRemake = () => {
+    confirmAction(
+      "Tem certeza que deseja refazer o experimento aos alunos?",
+      "Sim, refazer!",
+      async () => {
+        setButtonRemake(true); // Desabilita o botão
+        try {
+          if (!experimentDetails) {
+            Swal.fire({
+              icon: "error",
+              title: "Erro!",
+              text: "Detalhes do experimento não carregados.",
+            });
+            return;
+          }
+          const body = {
+            title: experimentDetails.title,
+            titleActivity: `${experimentDetails.titleActivity} - 2`,
+            description: experimentDetails.description,
+          };
+          const response = await createExperiment(
+            experimentDetails.teacher,
+            body
+          );
+          Swal.fire({
+            icon: "success",
+            title: "Experimento criado com sucesso!",
+          }).finally(() => {
+            navigate(
+              `/experimentroom/${response.data.experiment._id}/${response.data.experiment.pin}`
+            );
+          });
+        } catch (error) {
+          console.error("Erro ao refazer experimento:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Erro ao refazer experimento!",
+            text: "Tente novamente.",
+          });
+        } finally {
+          setButtonRemake(false); // Reabilita o botão
+        }
+      }
+    );
+  };
+  if (!experimentDetails) {
+    return <BaseAuth>Carregando experimento...</BaseAuth>;
+  }
 
   return (
     <BaseAuth>
-      <div className="colDivContent">
-        <div className="btnDivBack">
-          <Button onClick={handleGoBack} className="btnGoBack">
+      <div className={styles.colDivContent}>
+        <div className={styles.btnDivBack}>
+          <Button onClick={handleGoBack} className={styles.btnGoBack}>
             <HiOutlineArrowLeft />
             Voltar
           </Button>
         </div>
-        <Card className="card-login">
-          <div className="divpinsala">
-            <h3 className="pindasala">
-              Room Pin: <b>{pinValue}</b>
+        <Card className={styles.cardRoom}>
+          <div className={styles.divpinsala}>
+            <h3 className={styles.pindasala}>
+              Pin da Sala: <b>{pinValue}</b>
             </h3>
           </div>
-          <div className="divpinsala marginBottom">
-            <label className="labelexperimento">
-              Título do Experimento: <b>{responseExperiment.title}</b>
+          <div className={`${styles.divpinsala} ${styles.marginBottom}`}>
+            <label className={styles.labelexperimento}>
+              Título do Experimento: <b>{experimentDetails.title}</b>
             </label>
           </div>
-          <div className="divpinsala marginTop marginBottom">
-            <b className="bAlunos">Alunos:</b>
+          <div
+            className={`${styles.divpinsala} ${styles.marginTop} ${styles.marginBottom}`}
+          >
+            <b className={styles.bAlunos}>Alunos:</b>
           </div>
-          <div className="divpinsalaCol">
-            {students.map((student) => (
-              <div key={student.id} className="marginBottomLess">
-                <label>{student.name}</label>
-              </div>
-            ))}
+          <div className={styles.divpinsalaCol}>
+            {students.length === 0 ? (
+              <span className={styles.marginBottomLess}>
+                Nenhum aluno entrou na sala
+              </span>
+            ) : (
+              students.map((student) => (
+                <div key={student.id} className={styles.marginBottomLess}>
+                  <label>{student.name}</label>
+                </div>
+              ))
+            )}
           </div>
-          <div className="divpinsala marginBottom">
+          <div className={`${styles.divButton}`}>
             <Button
-              className="button-login"
-              onClick={showSuccessAlert}
-              disabled={buttonClicked}
+              className={styles.buttonLogin}
+              onClick={showAlertRemake}
+              disabled={buttonRemake}
             >
-              {buttonClicked ? "Liberando resultado" : "Liberar resultado"}
+              {buttonRemake ? "Reiniciando experimento" : "Refazer experimento"}
+            </Button>
+            <Button
+              className={styles.buttonLogin}
+              onClick={showAlertExperiment}
+              disabled={buttonExperiment}
+            >
+              {buttonExperiment
+                ? "Liberando experimento"
+                : "Liberar experimento"}
+            </Button>
+            <Button
+              className={styles.buttonLogin}
+              onClick={showAlertResult}
+              disabled={buttonResult}
+            >
+              {buttonResult ? "Liberando resultado" : "Liberar resultado"}
             </Button>
           </div>
         </Card>

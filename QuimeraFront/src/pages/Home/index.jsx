@@ -15,7 +15,7 @@ const Home = () => {
       <Header className="headerHomePG">
         <img src={LogoHA} alt="Logo HA" className="logoHomePG" />
         <div className="divbuttonMakeLogin">
-          <h3 className="textanswerAction">Are you a teacher?</h3>{" "}
+          <h3 className="textanswerAction">Você é professor?</h3>{" "}
           <Button
             className="btnMakeLogin"
             onClick={() => navigate("/loginTeacher")}

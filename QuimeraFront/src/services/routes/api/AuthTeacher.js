@@ -1,8 +1,8 @@
 import { api } from "../../api";
 
-async function registerTeacher(name, email, password) {
+async function createTeacher(name, email, password) {
   const body = { name, email, password };
-  return await api.post("registerTeacher", body);
+  return await api.post("createTeacher", body);
 }
 
 async function loginTeacher(email, password) {
@@ -10,4 +10,4 @@ async function loginTeacher(email, password) {
   return await api.post("loginTeacher", body);
 }
 
-export { registerTeacher, loginTeacher };
+export { createTeacher, loginTeacher };

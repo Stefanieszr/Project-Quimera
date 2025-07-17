@@ -23,13 +23,27 @@ const Base = ({
         <Card className={styles.pageCardTitle}>
           <Row>
             <Col xs={24} xl={24}>
-              <Breadcrumb>
-                <Breadcrumb.Item onClick={() => navigate(goTo)}>
-                  {Icon}
-                  <span>{goToName}</span>
-                </Breadcrumb.Item>
-              </Breadcrumb>
+              <Breadcrumb
+                items={[
+                  {
+                    title: (
+                      <span
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "4px",
+                        }}
+                      >
+                        {Icon}
+                        {goToName}
+                      </span>
+                    ),
+                    onClick: () => navigate(goTo),
+                  },
+                ]}
+              />
             </Col>
+
             <Col xs={24} xl={24}>
               <h3 className={styles.titlePage}>
                 {titlepage} {nameofuser}

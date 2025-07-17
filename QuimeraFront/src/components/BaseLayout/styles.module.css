@@ -9,6 +9,14 @@
   padding: 2em;
 }
 
+main.contentPages .ant-card-body {
+  padding: 0;
+}
+
+.rowPadding {
+  padding-top: 15px;
+}
+
 .pageCardTitle {
   display: flex;
   justify-content: flex-start;
@@ -17,7 +25,8 @@
   border: none;
   border-radius: 15px 15px 0 0;
   /* box-shadow: rgb(205, 225, 248) 0px 5px 00px; */
-  margin-bottom: 0px;
+  margin: 0px;
+  padding: 0;
   cursor: pointer;
 }
 
@@ -30,4 +39,8 @@
   font-weight: 600;
   font-size: 22px;
   margin-top: 10px;
+}
+
+.ant-card-body {
+  padding: 24px 24px 0 24px;
 }
