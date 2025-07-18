@@ -21,77 +21,76 @@ const IntroductionWater = () => {
     <Base
       goTo={"/"}
       Icon={<MdOutlineBiotech />}
-      goToName={"Introduction to Matter"}
-      titlepage={`the introduction of the body water drop matter of the experiment: ${pin}, `}
+      goToName={`Introdução a matéria: Sala ${pin}`}
+      titlepage={`ÁGUA para “QUIMERA”`}
       nameofuser={storedName}
       children={
-        <Card className={styles.cardCCWater}>
+        <Card className={styles.cardIntroduction}>
           <div className={styles.divTextsintro}>
-            <h1 className={styles.titlesCCWater}>WATER for “CHIMERA”</h1>
-            <span className={styles.expCCWater}>
-              The maintenance of parameters, with well-defined limits, is a
-              fundamental characteristic for the possibility of life. One of the
-              most relevant of these parameters is the control of WATER in the
-              organism of animals, other examples being: Na+, Ca++, Temperature,
-              Hormonal Concentrations, Glucose, etc. <br />
-              The total volume of water of an animal remains relatively constant
-              throughout the day. The (daily, natural) gain and loss of water
-              vary continuously within these limits previously mentioned.
+            <span className={styles.textSpan}>
+              A manutenção de parâmetros, com limites bem definidos, é uma
+              característica fundamental para a possibilidade da vida. Um dos
+              mais relevantes desses parâmetros é o controle da ÁGUA no
+              organismo dos animais, sendo outros exemplos: Na+, Ca++,
+              Temperatura, Concentrações Hormonais, Glicose, etc. <br />O volume
+              total de água de um animal permanece relativamente constante ao
+              longo do dia. O ganho e a perda (diários e naturais) de água
+              variam continuamente dentro desses limites mencionados
+              anteriormente.
             </span>
-            <h1 className={styles.titlesCCWater}>Specifying for: </h1>
-            <ul className={styles.itemsCCWater}>
+            <h1 className={styles.titlesCC}>Especificando para: </h1>
+            <ul className={styles.itemsCC}>
               <li>
-                <strong>GAIN:</strong> The intake of water in liquid form +
-                water present in food + water originating from cellular
-                metabolism.
+                <strong>GANHO:</strong> A ingestão de água na forma líquida +
+                água presente nos alimentos + água proveniente do metabolismo
+                celular.
               </li>
               <li>
-                <strong>LOSS:</strong> It occurs in the form of Urine + Sweating
-                + Breathing + Feces + Milk.
+                <strong>PERDA:</strong> Ocorre na forma de Urina + Suor +
+                Respiração + Fezes + Leite.
               </li>
             </ul>
-            <span className={styles.expCCWater}>
-              Both the gain and loss of water from the animal's body are
-              continuous, with more significant episodes and others less so, for
-              example: when urinating, the animal eliminates a significant
-              amount of water at one time, on the other hand, the loss through
-              breathing is not at one time, instead, it occurs continuously,
-              varying according to several environmental factors. The gain
-              occurs in the same way, with the ingestion of natural water in a
-              significant amount at one time, and the metabolic loss is not so
-              specific.
+            <span className={styles.textSpan}>
+              Tanto o ganho quanto a perda de água do corpo do animal são
+              contínuos, com episódios mais significativos e outros menos, por
+              exemplo: ao urinar, o animal elimina uma quantidade significativa
+              de água de uma só vez; por outro lado, a perda pela respiração não
+              ocorre de uma só vez, mas sim continuamente, variando de acordo
+              com diversos fatores ambientais. O ganho ocorre da mesma forma,
+              com a ingestão de água natural em quantidade significativa de uma
+              só vez, e a perda metabólica não é tão específica.
             </span>
             <br />
             <br />
-            <span className={styles.expCCWater}>
-              When the loss reaches significant levels, mechanisms for ingestion
-              are triggered, precisely by the sensation of thirst, but other
-              concomitant mechanisms will also be promoted, for example, with
-              the concentration of urine being accentuated, therefore reducing
-              the volume of water eliminated. This situation will be continuous
-              for any animal, with the challenge of DEHYDRATION threatening life
-              permanently.
+            <span className={styles.textSpan}>
+              Quando a perda atinge níveis significativos, mecanismos de
+              ingestão são acionados, justamente pela sensação de sede, mas
+              outros mecanismos concomitantes também serão promovidos, por
+              exemplo, com a concentração de urina sendo acentuada, reduzindo,
+              portanto, o volume de água eliminado. Essa situação será contínua
+              para qualquer animal, com o desafio da DESIDRATAÇÃO ameaçando a
+              vida permanentemente.
             </span>
             <br />
             <br />
-            <span className={styles.expCCWater}>
-              As soon as dehydration begins, the animal will look for water to
-              drink. This varies depending on several aspects, such as: species,
-              physiological state of the individual, age, temperature and
-              humidity of the environment, etc.
+            <span className={styles.textSpan}>
+              Assim que a desidratação se inicia, o animal buscará água para
+              beber. Isso varia dependendo de vários aspectos, como: espécie,
+              estado fisiológico do indivíduo, idade, temperatura e humidade do
+              ambiente, etc.
               <br />
               <br />
-              <strong>Another important point</strong>, related to the loss of
-              water, is the alteration of the electrolytes present in the animal
-              organism, but this topic will be the subject of another activity.
-              The mechanisms related to the control of electrolytes are closely
-              related to the control of water.
+              <strong>Outro ponto importante</strong>, relacionada à perda de
+              água, é a alteração dos eletrólitos presentes no organismo animal,
+              mas este tópico será objeto de outra atividade. Os mecanismos
+              relacionados ao controle de eletrólitos estão intimamente
+              relacionados ao controle da água.
             </span>
           </div>
           <div className={styles.divButtonIntro}>
             <h1 className={styles.titleIntro}>
-              Do you want to study the clinical case before starting or jumping
-              into the experiment?
+              Você quer estudar o caso clínico antes de começar ou mergulhar no
+              experimento?
             </h1>
             <div className={styles.divButtonsIntro}>
               <Button
@@ -100,7 +99,7 @@ const IntroductionWater = () => {
                 onClick={navigateToClinicCase}
               >
                 <BsBook />
-                Study clinical case
+                Estudar o caso clínico
               </Button>
               <span className={styles.titleIntro}> Or </span>
               <Button
@@ -109,7 +108,7 @@ const IntroductionWater = () => {
                 onClick={navigateToExperiment}
               >
                 <AiOutlineExperiment />
-                Start the experiment
+                Começar o experimento
               </Button>
             </div>
           </div>

@@ -75,7 +75,7 @@ module.exports = {
         return res.status(404).json({ error: "Experiment not found" });
       }
 
-      return res.json({ experiment });
+      return res.json(experiment);
     } catch (err) {
       console.log(err);
       return res.status(400).json({ error: "Error finding experiment" });
@@ -139,8 +139,12 @@ module.exports = {
       return res.status(404).json({ message: "Student not found." });
     }
 
-    studentAnswersOne = student.answerOne;
-    studentAnswersTwo = student.answerTwo;
+    const studentAnswersOne = student.answers.find(
+      (a) => a.questionText === "answerOne"
+    )?.answerText;
+    const studentAnswersTwo = student.answers.find(
+      (a) => a.questionText === "answerTwo"
+    )?.answerText;
 
     const tempo = require("./result_tables/time");
     const valor_corrigido = require("./result_tables/correctJsonValue");
@@ -149,26 +153,25 @@ module.exports = {
     const valor_semCorrecao = require("./result_tables/noCorrectJson");
 
     let answerData;
+    let notaDoAluno = 0;
+    let msg;
 
     if (studentAnswersOne === "Hipotálamo" && studentAnswersTwo === "ADH") {
       answerData = valor_corrigido;
+      notaDoAluno = 10;
+      msg = `Você acertou as duas respostas, ${studentAnswersOne} 80% e ${studentAnswersOne} 20%`;
     } else if (studentAnswersOne === "Hipotálamo") {
       answerData = valor_corrigido_80;
+      notaDoAluno = 8;
+      msg = `Você acertou a primeira resposta, ${studentAnswersOne} 80%`;
     } else if (studentAnswersTwo === "ADH") {
       answerData = valor_corrigido_20;
+      notaDoAluno = 2;
+      msg = `Você acertou a segunda resposta, ${studentAnswersOne} 80%`;
     } else {
       answerData = valor_semCorrecao;
-    }
-
-    let notaDoAluno = 0;
-    if (studentAnswersOne === "Hipotálamo" && studentAnswersTwo === "ADH") {
-      notaDoAluno = 10;
-    } else if (studentAnswersOne === "Hipotálamo") {
-      notaDoAluno = 8;
-    } else if (studentAnswersTwo === "ADH") {
-      notaDoAluno = 2;
-    } else {
       notaDoAluno = 0;
+      msg = `Você não acertou nenhuma resposta.`;
     }
 
     const data = {
@@ -176,6 +179,7 @@ module.exports = {
       studentValue: answerData,
       expectedValue: valor_corrigido,
       nota: notaDoAluno,
+      mensagem: msg,
     };
 
     return res.json({ data });
@@ -194,46 +198,20 @@ module.exports = {
     return resp.json({ data });
   },
 
-  // Função que realiza o update da sala e altera o valor de liberateRoom para true
-  async updateLiberateRoom(req, res) {
+  async updateExperiment(req, res) {
     try {
       const { id } = req.params;
-      const { liberateRoom, pinRoom } = req.body;
+      const { pinRoom, ...updateFields } = req.body;
 
-      const experiment = await Experiment.findByIdAndUpdate(id, {
-        liberateRoom,
+      const experiment = await Experiment.findByIdAndUpdate(id, updateFields, {
+        new: true,
       });
 
-      console.log("atualizado");
-
-      // --- LÓGICA WEBSOCKET: Notificar a entrada de novo aluno ---
+      // Emitir envento quando uma sala for atualizada
       if (req.io) {
-        // Busca a lista atualizada de alunos para esta sala
-        const updatedExeriment = await Experiment.getExperimentByPin(pinRoom);
-
-        // Emite o evento 'student_update' para todos na sala com este PIN
-        req.io.to(pinRoom).emit("experiment_update", updatedExeriment);
-        console.log(
-          `Socket.IO: Experimento liberado na sala ${pinRoom}. Emitindo 'student_update'.`
-        );
+        const updatedExperiment = await Experiment.getExperimentByPin(pinRoom);
+        req.io.to(pinRoom).emit("experiment_update", updatedExperiment);
       }
-      // --- FIM LÓGICA WEBSOCKET ---
-
-      return res.status(200).json({ experiment });
-    } catch (err) {
-      console.log(err);
-      return res.status(400).json({ error: "Error updating experiment" });
-    }
-  },
-
-  async updateLiberateResult(req, res) {
-    try {
-      const { id } = req.params;
-      const { liberateResult } = req.body;
-
-      const experiment = await Experiment.findByIdAndUpdate(id, {
-        liberateResult,
-      });
 
       return res.status(200).json({ experiment });
     } catch (err) {

@@ -8,10 +8,7 @@ routes.post("/teachers/:id/experiments", ExperimentController.create);
 
 // ---------- GET ----------
 routes.get("/students/:id/graphic", ExperimentController.getTotalGraphic);
-routes.get(
-  "/students/:id/initial-graphic",
-  ExperimentController.getInicialGrahic
-);
+routes.get("/students/initial-graphic", ExperimentController.getInicialGrahic);
 
 routes.get("/experiments/pin/:pin", ExperimentController.getExperimentByPin);
 routes.get(
@@ -28,12 +25,8 @@ routes.get(
 
 // ---------- PUT ----------
 routes.put(
-  "/experiments/:id/liberate-room",
-  ExperimentController.updateLiberateRoom
-);
-routes.put(
-  "/experiments/:id/liberate-result",
-  ExperimentController.updateLiberateResult
+  "/experiments/:id/update-experimet",
+  ExperimentController.updateExperiment
 );
 
 // ---------- DELETE ----------

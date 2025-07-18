@@ -20,7 +20,7 @@ const ExperimentTemperature = () => {
   React.useEffect(() => {
     // Busca os dados do experimentos
     getExperimentByPin(pin).then((response) => {
-      setExperimentData(response.data.experiment);
+      setExperimentData(response.data);
     });
   }, [pin]);
 

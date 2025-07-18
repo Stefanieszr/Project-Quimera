@@ -19,60 +19,60 @@ const ClinicCaseWater = () => {
     <Base
       goTo={"/"}
       Icon={<MdOutlineBiotech />}
-      goToName={"Clinical Case"}
-      titlepage={`to the clinical case of the experiment: ${pin}, `}
+      goToName={`Caso clínico do experimento: Sala ${pin}`}
+      titlepage={`Animal: Quimera I`}
       nameofuser={storedName}
       children={
         <Card className={styles.cardCCWater}>
           <Row gutter={[32, 22]}>
             <Col xs={24} xl={12}>
-              <h1 className={styles.titlesCCWater}>Animal: Chimera I </h1>
               <span className={styles.expCCWater}>
-                Explanation: Kidney problems are very common in cats. In this
-                condition, a very important symptom that we must monitor is
-                dehydration. When keeping the animal in veterinary clinics for
-                various procedures, we often observe this dangerous situation.{" "}
+                Problemas renais são muito comuns em gatos. Nessa condição, um
+                sintoma muito importante que devemos monitorar é a desidratação.
+                Ao manter o animal em clínicas veterinárias para diversos
+                procedimentos, frequentemente observamos essa situação perigosa.{" "}
               </span>
-              <h2 className={styles.titlesCCWater}>Symptoms</h2>
-              <span className={`${styles.expCCWater} ${styles.bold}`}>
-                The main symptoms of dehydration in this animal are:
-              </span>
+
+              <h2 className={`${styles.expCCWater} ${styles.bold}`}>
+                Os principais sintomas de desidratação neste animal são:
+              </h2>
               <ul className={styles.itemsCCWater}>
-                <li>Wrinkled skin</li>
-                <li>Panting</li>
-                <li>Increased heart rate</li>
-                <li>Sunken eyes</li>
-                <li>Difficulty urinating</li>
+                <li>Pele enrugada</li>
+                <li>Ofegar</li>
+                <li>Aumento da frequência cardíaca</li>
+                <li>Olhos fundos</li>
+                <li>Dificuldade para urinar</li>
               </ul>
-              <h2 className={styles.titlesCCWater}>Causes</h2>
-              <span className={`${styles.expCCWater} ${styles.bold}`}>
-                The main causes are:
-              </span>
+              <h2 className={`${styles.expCCWater} ${styles.bold}`}>
+                As principais causas são:
+              </h2>
               <ul className={styles.itemsCCWater}>
-                <li>Insufficient intake (for various reasons)</li>
-                <li>Vomiting and/or Diarrhea</li>
-                <li>Burns, sunstroke, and different types of pathologies</li>
+                <li>Ingestão insuficiente (por vários motivos)</li>
+                <li>Vômitos e/ou diarreia</li>
+                <li>Queimaduras, insolação e diversos tipos de patologias</li>
               </ul>
             </Col>
             <Col xs={24} xl={12}>
-              <div className={styles.imgcatsDiv}>
-                <img src={Gato1} alt="gato1" className="imgcats" />
-                <img src={Gato2} alt="gato2" className="imgcats" />
+              <div className={styles.imgCatsDiv}>
+                <img src={Gato1} alt="gato1" className={styles.imgCats} />
+                <img src={Gato2} alt="gato2" className={styles.imgCats} />
               </div>
             </Col>
           </Row>
           <div className={styles.divButtonIniciate}>
-            <h1 className={styles.titleIniciate}>Ready to start treatment?</h1>
+            <h1 className={styles.titleIniciate}>
+              Pronto para iniciar o tratamento?
+            </h1>
             <span className={styles.descCCWater}>
-              The thirst threshold will trigger strict homeostatic control in
-              the animal's body.{" "}
+              O limiar da sede desencadeará um controle homeostático rigoroso no
+              corpo do animal.{" "}
             </span>
             <Button
               className={styles.btnIniciate}
               type="primary"
               onClick={navigateToExperiment}
             >
-              Start treatment
+              Iniciar tratamento
             </Button>
           </div>
         </Card>

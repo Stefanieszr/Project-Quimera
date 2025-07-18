@@ -18,11 +18,8 @@ export function setupSocketConnection(pin) {
 export function listenForExperimentUpdate(callback) {
   if (socket) {
     console.log("experimento atualizado");
-    socket.off("experiment_update", callback);
+    socket.off("experiment_update");
     socket.on("experiment_update", (updatedExperiment) => {
-      console.log(updatedExperiment);
-      // Quando o evento 'experiment_update' ocorrer,
-      // chamamos a função 'callback' que o componente nos deu.
       callback(updatedExperiment);
     });
   }

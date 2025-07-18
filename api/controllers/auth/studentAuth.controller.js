@@ -6,17 +6,31 @@ exports.createStudent = async (req, res) => {
   try {
     const { name, pin } = req.body;
 
+    // Busca o experimento
     const experiment = await Experiment.findOne({ pin });
     if (!experiment) {
       return res.status(400).send({ message: "Invalid PIN." });
+    }
+    if (experiment.liberateResult) {
+      return res
+        .status(400)
+        .send({ message: "Sala encerrada, resultado já liberado." });
+    }
+
+    let newSubmissions = [];
+    if (experiment.title === "Variação de Água Corporal") {
+      newSubmissions = [
+        { questionText: "answerOne", answerText: null },
+        { questionText: "answerTwo", answerText: null },
+      ];
     }
 
     const student = new Student({
       name,
       pin,
-      answerOne: null,
-      answerTwo: null,
+      answers: newSubmissions,
     });
+
     await student.save();
 
     // --- LÓGICA WEBSOCKET: Notificar a entrada de novo aluno ---
@@ -38,8 +52,7 @@ exports.createStudent = async (req, res) => {
         name: student.name,
         pin: student.pin,
         title: experiment.title,
-        answerOne: student.answerOne,
-        answerTwo: student.answerTwo,
+        answers: student.answers,
       },
     });
   } catch (err) {
@@ -76,47 +89,46 @@ exports.getStudentByPin = async (req, res) => {
 
 exports.updateStudentAnswers = async (req, res) => {
   try {
-    const { answerOne, answerTwo } = req.body;
-    const studentId = req.params.id;
+    const { studentId, answers } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(studentId)) {
       return res.status(400).send({ message: "Invalid student ID." });
     }
 
-    const updatedStudent = await Student.findByIdAndUpdate(
-      studentId,
-      { answerOne, answerTwo },
-      { new: true }
-    );
-
-    if (!updatedStudent) {
-      return res.status(404).send({ message: "Student not found." }); // Retornar 404 aqui
+    const student = await Student.findById(studentId);
+    if (!student) {
+      return res.status(404).send({ message: "Student not found." });
     }
 
-    // --- LÓGICA WEBSOCKET: Notificar atualização de respostas do aluno ---
+    console.log("aquiii", student);
+
+    // Atualiza as respostas baseadas no questionText
+    answers.forEach(({ questionText, answerText }) => {
+      const answerIndex = student.answers.findIndex(
+        (a) => a.questionText === questionText
+      );
+      if (answerIndex !== -1) {
+        student.answers[answerIndex].answerText = answerText;
+      }
+    });
+
+    await student.save();
+
     if (req.io) {
-      // Buscar novamente a lista completa de alunos para a sala
-      // Isso garante que o frontend tenha a lista mais recente, incluindo o aluno atualizado
-      const updatedStudentsInRoom = await Student.find({
-        pin: updatedStudent.pin,
-      });
-      req.io
-        .to(updatedStudent.pin)
-        .emit("student_update", updatedStudentsInRoom);
+      const roomStudents = await Student.find({ pin: student.pin });
+      req.io.to(student.pin).emit("student_update", roomStudents);
       console.log(
-        `Socket.IO: Respostas do aluno ${updatedStudent.name} na sala ${updatedStudent.pin} atualizadas. Emitindo 'student_update'.`
+        `Socket.IO: Respostas do aluno ${student.name} na sala ${student.pin} atualizadas. Emitindo 'student_update'.`
       );
     }
-    // --- FIM LÓGICA WEBSOCKET ---
 
     res.status(200).send({
       message: "Student answers updated successfully.",
       student: {
-        _id: updatedStudent._id,
-        name: updatedStudent.name,
-        pin: updatedStudent.pin,
-        answerOne: updatedStudent.answerOne,
-        answerTwo: updatedStudent.answerTwo,
+        _id: student._id,
+        name: student.name,
+        pin: student.pin,
+        answers: student.answers,
       },
     });
   } catch (err) {

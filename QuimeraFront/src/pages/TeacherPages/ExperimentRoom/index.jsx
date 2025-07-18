@@ -12,8 +12,7 @@ import { getStudentByPin } from "@/services/routes/api/AuthStudent";
 import {
   getExperimentById,
   createExperiment,
-  liberateResult,
-  liberateRoom,
+  updateExperiment,
 } from "@/services/routes/api/Experiment";
 import {
   setupSocketConnection,
@@ -90,7 +89,12 @@ export default function ExperimentRoom() {
       async () => {
         setButtonResult(true); // Desabilita o botão
         try {
-          await liberateResult(idValue, { liberateResult: true });
+          const body = {
+            liberateResult: true,
+            pinRoom: pinValue,
+          };
+          const response = await updateExperiment(idValue, body);
+          console.log(response);
           Swal.fire({
             icon: "success",
             title: "Resultado liberado com sucesso!",
@@ -120,7 +124,7 @@ export default function ExperimentRoom() {
             liberateRoom: true,
             pinRoom: pinValue,
           };
-          const response = await liberateRoom(idValue, body);
+          const response = await updateExperiment(idValue, body);
           console.log(response);
           Swal.fire({
             icon: "success",

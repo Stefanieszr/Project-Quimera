@@ -26,16 +26,13 @@ async function getExperimentOptionOne() {
 async function getGraphic(id) {
   return await api.get(`/students/${id}/graphic`);
 }
-async function getInicialGraphic(id) {
-  return await api.get(`/students/${id}/initial-graphic`);
+async function getInicialGraphic() {
+  return await api.get(`/students/initial-graphic`);
 }
 
 // ---------- PUT ----------
-async function liberateRoom(id, body) {
-  return await api.put(`/experiments/${id}/liberate-room`, body);
-}
-async function liberateResult(id, body) {
-  return await api.put(`/experiments/${id}/liberate-result`, body);
+async function updateExperiment(id, body) {
+  return await api.put(`/experiments/${id}/update-experimet`, body);
 }
 
 // ---------- DELETE ----------
@@ -45,6 +42,7 @@ async function deleteExperiment(id) {
 
 export {
   getExperimentByPin,
+  updateExperiment,
   createExperiment,
   getExperimentById,
   getAllExperiments,
@@ -53,6 +51,4 @@ export {
   getExperimentOptionOne,
   getGraphic,
   getInicialGraphic,
-  liberateRoom,
-  liberateResult,
 };

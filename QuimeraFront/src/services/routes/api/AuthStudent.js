@@ -7,7 +7,7 @@ async function createStudent(body) {
 async function getStudentByPin(pin) {
   return await api.get(`student/${pin}`);
 }
-async function postAnswer(id, body) {
-  return await api.post(`/student/answer/${id}`, body);
+async function updateStudent(body) {
+  return await api.put(`/student/update`, body);
 }
-export { createStudent, getStudentByPin, postAnswer };
+export { createStudent, getStudentByPin, updateStudent };
