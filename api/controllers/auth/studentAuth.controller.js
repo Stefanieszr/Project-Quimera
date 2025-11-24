@@ -1,5 +1,5 @@
-const Student = require("./../../models/userSchema/student.model");
-const Experiment = require("./../../models/experiment/experiment.model");
+const Student = require("@/models/userSchema/student.model");
+const Experiment = require("@/models/experiment/experiment.model");
 const mongoose = require("mongoose");
 
 exports.createStudent = async (req, res) => {
@@ -11,10 +11,10 @@ exports.createStudent = async (req, res) => {
     if (!experiment) {
       return res.status(400).send({ message: "Invalid PIN." });
     }
-    if (experiment.liberateResult) {
+    if (experiment.liberateResult || experiment.liberateRoom) {
       return res
         .status(400)
-        .send({ message: "Sala encerrada, resultado já liberado." });
+        .send({ message: "Sem permissão para entrar na sala." });
     }
 
     let newSubmissions = [];
@@ -96,19 +96,24 @@ exports.updateStudentAnswers = async (req, res) => {
     }
 
     const student = await Student.findById(studentId);
+    console.log(student);
+    console.log(answers);
     if (!student) {
       return res.status(404).send({ message: "Student not found." });
     }
-
-    console.log("aquiii", student);
 
     // Atualiza as respostas baseadas no questionText
     answers.forEach(({ questionText, answerText }) => {
       const answerIndex = student.answers.findIndex(
         (a) => a.questionText === questionText
       );
+
       if (answerIndex !== -1) {
+        // Já existe → atualiza
         student.answers[answerIndex].answerText = answerText;
+      } else {
+        // Não existe → insere
+        student.answers.push({ questionText, answerText });
       }
     });
 
@@ -132,11 +137,7 @@ exports.updateStudentAnswers = async (req, res) => {
       },
     });
   } catch (err) {
-    console.error(err);
-    if (res.headersSent) {
-      // Para evitar "Cannot set headers after they are sent to the client"
-      return;
-    }
+    if (res.headersSent) return;
     if (err.message === "Student not found.") {
       res.status(404).send({ message: "Student not found." });
     } else {
@@ -145,19 +146,14 @@ exports.updateStudentAnswers = async (req, res) => {
   }
 };
 
-exports.findById = async (id) => {
+exports.findById = async (req, res) => {
   try {
-    if (!id) {
-      throw new Error("ID do estudante não pode ser nulo.");
-    }
-
+    const id = req.params.id;
+    if (!id) throw new Error("ID do estudante não pode ser nulo.");
     const student = await Student.findById(id);
-    if (!student) {
-      throw new Error("Estudante não encontrado.");
-    }
-
-    return student;
+    if (!student) throw new Error("Estudante não encontrado.");
+    return res.json(student);
   } catch (err) {
-    throw new Error(err.message);
+    console.error(err);
   }
 };

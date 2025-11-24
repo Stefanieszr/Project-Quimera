@@ -16,6 +16,9 @@ async function getAllExperiments(idTeacher) {
   return await api.get(`/teachers/${idTeacher}/experiments`);
 }
 
+async function getExperimentSimulado() {
+  return await api.get(`/experiments/simulado`);
+}
 async function getExperimentOptions() {
   return await api.get(`/experiments/options`);
 }
@@ -47,6 +50,7 @@ export {
   getExperimentById,
   getAllExperiments,
   deleteExperiment,
+  getExperimentSimulado,
   getExperimentOptions,
   getExperimentOptionOne,
   getGraphic,

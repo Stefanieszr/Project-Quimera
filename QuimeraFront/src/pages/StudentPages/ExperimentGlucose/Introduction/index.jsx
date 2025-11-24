@@ -3,6 +3,17 @@ import { AiOutlineExperiment } from "react-icons/ai";
 import { BsBook } from "react-icons/bs";
 import { MdOutlineBiotech } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  ReferenceArea,
+} from "recharts";
 
 import styles from "./styles.module.css";
 
@@ -15,84 +26,145 @@ const IntroductionTemperature = () => {
   const navigateToClinicCase = () => {
     navigate(`/cliniccaseGlucose/${pin}`);
   };
+  const data = [
+    { tempo: -4, glicemia: 0 },
+    { tempo: 0, glicemia: 0 },
+    { tempo: 4, glicemia: -2 },
+    { tempo: 8, glicemia: -6 },
+    { tempo: 12, glicemia: -11 },
+    { tempo: 16, glicemia: -5 },
+    { tempo: 20, glicemia: -1 },
+    { tempo: 24, glicemia: 0 },
+  ];
   return (
     <Base
       goTo={"/"}
       Icon={<MdOutlineBiotech />}
       goToName={`Introdução a matéria de glicemia: Sala ${pin}`}
-      titlepage={`VARIAÇÃO DA GLICEMIA para "QUIMERA"`}
+      titlepage={`CONTROLE DA GLICEMIA para "QUIMERA"`}
+      descriptionPage={`A glicemia é a quantidade de glicose presente no plasma sanguíneo
+              e representa um dos parâmetros mais importantes no organismo
+              animal. O corpo precisa manter essa taxa em equilíbrio para
+              garantir energia sem causar excesso de açúcar no sangue.`}
       nameofuser={storedName}
       children={
         <Card className={styles.cardIntroduction}>
           <div className={styles.divTextsintro}>
             <span className={styles.textSpan}>
-              A manutenção de parâmetros fisiológicos dentro de limites bem
-              definidos é essencial para a sobrevivência dos animais. Um dos
-              parâmetros mais cruciais é a concentração de glicose no sangue,
-              sendo outros exemplos: temperatura corporal, concentração de água,
-              eletrólitos (Na⁺, K⁺), pH, entre outros.<br></br>A glicose é a
-              principal fonte de energia para a maioria das células do
-              organismo. Assim, manter seus níveis dentro de uma faixa adequada
-              é vital para garantir o funcionamento celular, especialmente de
-              tecidos altamente dependentes de glicose, como o cérebro. O
-              equilíbrio glicêmico é resultado de mecanismos biológicos que
-              atuam constantemente, ajustando a captação, o armazenamento, a
-              produção e o consumo de glicose de acordo com as demandas do
-              organismo.
+              Após a alimentação, principalmente quando há consumo de
+              carboidratos, a concentração de glicose no sangue aumenta. Nesse
+              momento ocorre a liberação de <b>insulina</b>, que promove a
+              redução da glicemia.{" "}
+              <i>(veja no gráfico a queda após a alimentação)</i>. No sentido
+              oposto, o <b>glucagon</b> atua elevando os níveis de glicose
+              sanguínea. Situações como exercício físico, estresse ou o simples
+              passar do tempo após uma refeição tendem a reduzir a glicemia de
+              forma natural{" "}
+              <i>
+                (observe a curva subindo no gráfico quando a glicose está baixa)
+              </i>
+              . Outros hormônios também participam desse controle. A
+              <b> adrenalina</b> aumenta a glicemia em situações de resposta
+              rápida <i>(gráfico mostra pico instantâneo)</i> e o{" "}
+              <b>cortisol</b> também contribui para a elevação dos níveis de
+              glicose <i>(gráfico mostra pico instantâneo)</i>.
             </span>
-            <h1 className={styles.titlesCC}>Especificando para: </h1>
-            <ul className={styles.itemsCC}>
-              <li>
-                <strong>AUMENTO DA GLICEMIA (Hiperglicemia):</strong> Pode
-                ocorrer após a ingestão de alimentos ricos em carboidratos,
-                quando a glicose é absorvida pelo trato gastrointestinal e
-                liberada na corrente sanguínea. Para evitar que os níveis se
-                elevem de forma prejudicial, o pâncreas libera insulina,
-                hormônio que estimula a captação de glicose pelas células
-                (especialmente musculares e adiposas) e promove seu
-                armazenamento na forma de glicogênio, principalmente no fígado e
-                nos músculos.
-              </li>
-              <li>
-                <strong>REDUÇÃO DA GLICEMIA (Hipoglicemia):</strong> Pode
-                ocorrer em situações de jejum prolongado, exercício intenso ou
-                em estados de estresse agudo. Nestes casos, o organismo ativa
-                mecanismos de liberação de glicose na circulação, como a quebra
-                do glicogênio hepático (glicogenólise) e a produção de glicose a
-                partir de outras moléculas (gliconeogênese), processos
-                estimulados por hormônios como o glucagon, adrenalina e
-                cortisol.
-              </li>
-            </ul>
-            <span className={styles.textSpan}>
-              O controle da glicemia é dinâmico e sensível a uma variedade de
-              fatores internos e externos. Por exemplo, durante o exercício
-              físico, o músculo consome mais glicose, levando à redução dos
-              níveis sanguíneos. Para compensar, o fígado aumenta a liberação de
-              glicose. Por outro lado, após uma refeição, há um aumento na
-              glicemia, rapidamente regulado pela ação da insulina.
-            </span>
-            <br />
-            <br />
-            <span className={styles.textSpan}>
-              Quando os mecanismos de controle falham, surgem distúrbios
-              metabólicos importantes. Na hiperglicemia crônica, como ocorre no
-              diabetes mellitus, há riscos de danos aos vasos sanguíneos, nervos
-              e órgãos. Na hipoglicemia severa, há risco imediato de
-              comprometimento da função cerebral, podendo levar a desmaios,
-              convulsões e, em casos extremos, à morte.
-            </span>
-            <br />
-            <br />
-            <span className={styles.textSpan}>
-              Além dos mecanismos fisiológicos, comportamentos também
-              influenciam a regulação glicêmica, como a escolha dos alimentos,
-              os horários das refeições, o nível de atividade física e até o
-              controle do estresse. Esses fatores, associados às características
-              de cada espécie, idade, estado fisiológico e condição ambiental,
-              modulam o equilíbrio da glicose no organismo.
-            </span>
+
+            {/* Seção de Gráfico */}
+            <section className={styles.sectionGraph}>
+              <h3>
+                Gráfico que exemplifica a elevação da glicemia após a refeição
+              </h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart
+                  data={data}
+                  margin={{ top: 10, right: 0, left: 0, bottom: 10 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="tempo"
+                    tick={{ fontSize: 10, fill: "#3c3c3c" }}
+                    label={{
+                      value: "Tempo (minutos)",
+                      position: "insideBottom",
+                      offset: -5,
+                      style: { fontSize: 12 },
+                    }}
+                  />
+                  <YAxis
+                    tick={{ fontSize: 10, fill: "#3c3c3c" }}
+                    label={{
+                      value: "Glicemia (% alteração)",
+                      angle: -90,
+                      offset: 10,
+                      position: "insideLeft",
+                      style: { fontSize: 12 },
+                    }}
+                  />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="glicemia"
+                    stroke="#8884d8"
+                    strokeWidth={2}
+                    activeDot={{ r: 6 }}
+                  />
+
+                  {/* Área sombreada: Ingestão de alimento */}
+                  <ReferenceArea
+                    x1={12}
+                    x2={24}
+                    strokeOpacity={0}
+                    fill="rgba(255, 165, 0, 0.3)"
+                    label={{
+                      value: "Após refeição",
+                      style: { fontSize: 10, whiteSpace: "pre-line" },
+                    }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </section>
+
+            <section>
+              <h3>Intensidade Relativa dos Hormônios sobre a Glicemia</h3>
+              <p className={styles.textSpan}>
+                Para organizar melhor essa informação, ranking dos hormônios com
+                base no efeito que cada um exerce sobre a glicemia.
+              </p>
+              <table className={styles.rankingTable}>
+                <thead>
+                  <tr>
+                    <th>Hormônio</th>
+                    <th>Efeito na glicemia</th>
+                    <th>Observação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className={styles.hormoneName}>INSULINA ⬇️</td>
+                    <td>Reduz a glicose no sangue</td>
+                    <td>Principal hormônio</td>
+                  </tr>
+                  <tr>
+                    <td className={styles.hormoneName}>GLUCAGON ⬆️</td>
+                    <td>Aumenta a glicose</td>
+                    <td>Liberação rápida em jejum</td>
+                  </tr>
+                  <tr>
+                    <td className={styles.hormoneName}>ADRENALINA ⬆️</td>
+                    <td>Aumenta rapidamente</td>
+                    <td>Responde a situações de alerta ou estresse</td>
+                  </tr>
+                  <tr>
+                    <td className={styles.hormoneName}>CORTISOL ⬆️</td>
+                    <td>Aumenta glicemia</td>
+                    <td>Estresse prolongado</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
           </div>
+
           <div className={styles.divButtonIntro}>
             <h1 className={styles.titleIntro}>
               Estude o caso clínico e realize uma discussão em grupo antes de

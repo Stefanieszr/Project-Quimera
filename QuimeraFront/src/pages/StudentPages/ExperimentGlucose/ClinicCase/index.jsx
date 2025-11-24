@@ -25,36 +25,79 @@ const ClinicCaseTemperature = () => {
         <Card className={styles.cardCCWater}>
           <Row gutter={[32, 22]}>
             <Col xs={24} xl={12}>
-              <span className={styles.expCCWater}>
-                Pipoca, um cachorro, foi levado à clínica veterinária com queixa
-                de baixo ganho de peso, apesar de estar recebendo uma
-                alimentação de boa qualidade. Durante a consulta, foi observada
-                uma glicemia de 56 mg/dL, indicando um quadro de Diabetes
-                Mellitus, condição que exige acompanhamento veterinário
-                contínuo. Além disso, foram identificados cuidados necessários
-                quanto à alimentação e à prática de exercícios físicos, uma vez
-                que atividades extenuantes podem levar a quedas perigosas nos
-                níveis de glicose.{" "}
-              </span>
-              <h2 className={styles.titlesCCWater}>Sintomas</h2>
-              <ul className={styles.itemsCCWater}>
-                <li>Perda de peso, mesmo com alimentação adequada</li>
-                <li>Fraqueza ou cansaço</li>
-                <li>Tremores ou letargia</li>
-                <li>Aumento na ingestão de água</li>
-                <li>Aumento na frequência urinária</li>
-              </ul>
-              <h2 className={styles.titlesCCWater}>Causas</h2>
-              <ul className={styles.itemsCCWater}>
-                <li>
-                  Disfunção ou destruição das células pancreáticas produtoras de
-                  insulina
-                </li>
-                <li>Predisposição genética</li>
-                <li>Alterações hormonais ou metabólicas</li>
-                <li>Alimentação inadequada em fases anteriores</li>
-                <li>Sedentarismo ou manejo incorreto da atividade física</li>
-              </ul>
+              <section className={styles.sectionIntro}>
+                <p className={styles.expCCWater}>
+                  Pipoca, um cão de raça labrador, foi levado à sua clínica
+                  veterinária por Manuel, seu tutor que adotou há 5 meses. Este
+                  animal, um macho de 8 meses de idade, com todas as vacinas em
+                  dia, não apresenta o peso compatível com a idade, apesar de se
+                  alimentar com rações de ótima qualidade.
+                </p>
+                <p className={styles.expCCWater}>
+                  Durante a consulta, você realiza dosagens glicêmicas
+                  plasmáticas, e os valores sempre superam 280 mg/dL. Sabendo
+                  que os valores normais devem se manter entre 65 - 118 mg/dL,
+                  você estabelece como diagnóstico preliminar:
+                  <b> Diabetes Mellitus</b>.
+                </p>
+                <p className={styles.expCCWater}>
+                  Esta patologia geralmente apresenta quadro crônico, portanto
+                  Pipoca deverá ser acompanhados indefinidamente, sempre sob sua
+                  supervisão. Controle da glicose plasmática é um dos parâmetros
+                  mais bem conhecidos da Fisiologia Animal.
+                </p>
+
+                <div className={styles.sectionIntro}>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Glicemia</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Pipoca</td>
+                        <td>280+ (mg/dL)</td>
+                      </tr>
+                      <tr>
+                        <td>Valor Normal</td>
+                        <td>65 - 118 (mg/dL)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              {/* Seção de recomendações */}
+              <section className={styles.sectionIntro}>
+                <h3>Você deve orientar o tutor sobre:</h3>
+
+                <ul className={styles.itemsCC}>
+                  <li>
+                    Atividades físicas realizadas pelo animal (exercícios,
+                    especialmente extenuantes, e tipos de estresse físico).
+                  </li>
+                  <li>
+                    Alimentação do cão, especialmente ingestão de carboidratos.
+                  </li>
+                  <li>
+                    Endocrinologia relacionada, ou seja, os hormônios envolvidos
+                    no controle da glicemia.
+                  </li>
+                </ul>
+              </section>
+
+              {/* Seção de análise e discussão */}
+              <section className={styles.sectionIntro}>
+                <h3>Análise e Discussão</h3>
+                <p className={styles.textSpan}>
+                  Discuta em grupo como os hormônios (insulina, glucagon,
+                  adrenalina, cortisol) atuam na regulação da glicemia, e quais
+                  medidas práticas podem ser recomendadas para esse animal,
+                  considerando dieta, exercícios e manejo do estresse.
+                </p>
+              </section>
             </Col>
             <Col xs={24} xl={12}>
               <div className={styles.imgDogDiv}>

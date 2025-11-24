@@ -1,108 +1,190 @@
+/* Containers e Cards */
+.cardIntroduction {
+  border-radius: 15px;
+}
+
 .divButtonIntro {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   width: 100%;
-  padding: 2em;
-  margin-top: 20px;
+  padding: 2rem;
+  margin-top: 2rem;
   background-color: #74d569;
   border-radius: 15px;
   gap: 20px;
 }
 
-.cardIntroduction {
-  border-radius: 15px;
-}
-
+/* Títulos e textos */
 .titleIntro {
-  font-size: 1.5em;
+  font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .textSpan {
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 400;
   color: #3c3c3c;
-}
-.titlesCC {
-  display: flex;
-  width: 100%;
-  margin-top: 10px;
-  font-size: 22px;
-  font-weight: 700;
-  color: #000000;
+  line-height: 1.6;
 }
 
-.itemsCC {
-  color: #000000;
-  font-size: 18px;
-  font-weight: 400;
-}
-
+/* Botões */
 .btnIntro {
-  padding: 1.5em;
+  padding: 1.5rem;
   border: none;
   border-radius: 100px;
   cursor: pointer;
   background-color: #72aaf7;
   color: #fff;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   text-align: center;
   text-transform: uppercase;
   gap: 15px;
+  transition: all 0.3s ease;
 }
 
 .btnIntro:hover {
   background-color: #5698f4;
-  color: #fff;
-  box-shadow: rgb(136, 189, 230) 0px 5px 20px;
+  box-shadow: 0 5px 20px rgba(136, 189, 230, 0.7);
 }
 
 .divButtonsIntro {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row;
   gap: 20px;
 }
 
 .Orange {
   background-color: #f2994a;
-  box-shadow: rgb(185, 241, 179) 0px 5px 20px;
+  box-shadow: 0 5px 20px rgba(185, 241, 179, 0.7);
 }
 
 .Orange:hover {
-  box-shadow: rgb(233, 201, 115) 0px 5px 50px;
   background-color: #f58320;
+  box-shadow: 0 5px 50px rgba(233, 201, 115, 0.7);
 }
 
 .Yellow {
   background-color: #f2c94c;
-  box-shadow: rgb(185, 241, 179) 0px 5px 20px;
+  box-shadow: 0 5px 20px rgba(185, 241, 179, 0.7);
 }
 
 .Yellow:hover {
-  box-shadow: rgb(233, 225, 115) 0px 5px 50px;
   background-color: #fac31e;
+  box-shadow: 0 5px 50px rgba(233, 225, 115, 0.7);
 }
 
+/* Seções */
+.sectionIntro,
+.sectionTable,
+.sectionGraph,
+.sectionAction {
+  margin-bottom: 2rem;
+}
+
+/* Tabelas */
+.tableContainer {
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+.table,
+.rankingTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+.rankingTable th,
+.rankingTable td {
+  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.65rem;
+}
+
+.rankingTable th {
+  background-color: #4caf50;
+  color: white;
+}
+
+.rankingTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.rankingTable tr:hover {
+  background-color: #e0f2f1;
+}
+
+/* Tabela informativa */
+.sectionTable {
+  max-width: 400px;
+  margin: 3rem 0;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  text-align: left;
+}
+.sectionTable h2 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.sectionTable p {
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.tableContainer {
+  width: auto;
+  overflow-x: auto;
+  margin: 0;
+}
+
+.table {
+  width: auto;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  margin: 0 auto;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ccc;
+  padding: 0.25rem 0.5rem;
+  text-align: center;
+}
+
+/* Gráficos */
+.sectionGraph {
+  margin: 2rem 0;
+}
+
+/* Responsividade */
 @media screen and (max-width: 768px) {
   .divButtonsIntro {
     flex-direction: column;
   }
 
   .titleIntro {
-    font-size: 1.2em;
+    font-size: 1.25rem;
   }
 
   .btnIntro {
-    padding: 1em;
-    font-size: 16px;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .rankingTable th,
+  .rankingTable td {
+    padding: 8px 4px;
+    font-size: 0.5rem;
   }
 }

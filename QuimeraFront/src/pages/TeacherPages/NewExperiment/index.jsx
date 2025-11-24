@@ -70,7 +70,7 @@ const NewExperiment = () => {
           <Col xs={24} xl={24}>
             <Card className={styles.cardForms}>
               <h4 className={`${styles.center} ${styles.formsTitle}`}>
-                Vamos começar outro experimento?
+                Vamos começar um novo experimento?
               </h4>
               <span className={`${styles.center} ${styles.formsDescription}`}>
                 Preencha o formulário abaixo para realizar um novo experimento

@@ -1,5 +1,7 @@
 const express = require("express");
-const ExperimentController = require("../../controllers/experiment/experiment.controller.js");
+const ExperimentController = require("@/controllers/experiment/experiment.controller.js");
+const ExperimentWaterController = require("@/controllers/experiment/ExperimentWater/water.controller.js");
+const ExperimentGlucoseController = require("@/controllers/experiment/ExperimentGlucose/glucose.controller.js");
 
 const routes = express.Router();
 
@@ -7,8 +9,11 @@ const routes = express.Router();
 routes.post("/teachers/:id/experiments", ExperimentController.create);
 
 // ---------- GET ----------
-routes.get("/students/:id/graphic", ExperimentController.getTotalGraphic);
-routes.get("/students/initial-graphic", ExperimentController.getInicialGrahic);
+routes.get("/students/:id/graphic", ExperimentWaterController.getTotalGraphic);
+routes.get(
+  "/students/initial-graphic",
+  ExperimentWaterController.getInicialGrahic
+);
 
 routes.get("/experiments/pin/:pin", ExperimentController.getExperimentByPin);
 routes.get(
@@ -17,10 +22,17 @@ routes.get(
 );
 routes.get("/teachers/:id/experiments", ExperimentController.getAllExperiments);
 
-routes.get("/experiments/options", ExperimentController.getExperimentOptions);
+routes.get(
+  "/experiments/simulado",
+  ExperimentGlucoseController.getExperimentSimulado
+);
+routes.get(
+  "/experiments/options",
+  ExperimentWaterController.getExperimentOptions
+);
 routes.get(
   "/experiments/optionOne",
-  ExperimentController.getExperimentOptionOne
+  ExperimentWaterController.getExperimentOptionOne
 );
 
 // ---------- PUT ----------

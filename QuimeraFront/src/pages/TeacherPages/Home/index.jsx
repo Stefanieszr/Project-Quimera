@@ -29,7 +29,6 @@ const Home = () => {
     try {
       const response = await getAllExperiments(idTeacher);
       setExperiments(response.data.experiments);
-      console.log(response.data.experiments);
     } catch (err) {
       console.error(err);
     }

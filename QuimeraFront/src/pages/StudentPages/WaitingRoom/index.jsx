@@ -19,7 +19,6 @@ const WaitingRoom = () => {
   React.useEffect(() => {
     setupSocketConnection(pin);
     listenForExperimentUpdate((updatedExperiment) => {
-      console.log(updatedExperiment);
       if (updatedExperiment.liberateRoom) {
         if (tipo === "Water") {
           navigate(`/introductionwater/${pin}`);

@@ -53,6 +53,12 @@
   margin-bottom: 30px;
 }
 
+.WaitingResult {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
 .divCards {
   display: flex;
   flex-direction: row;
