@@ -15,7 +15,7 @@ const server = http.createServer(app); // Criar um servidor HTTP a partir do seu
 // Configurar o Socket.IO e o CORS para WebSockets
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
   },
 });

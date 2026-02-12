@@ -2,7 +2,7 @@ import { Card, Row, Col } from "antd";
 import { useState } from "react";
 import { MdOutlineBiotech } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import Alert from "sweetalert2";
+import Swal from "sweetalert2";
 
 import styles from "./styles.module.css";
 
@@ -26,37 +26,31 @@ const NewExperiment = () => {
   const idTeacher = localStorage.getItem("_idTeacher");
 
   const handleSearch = () => {
-    if (experiment === "" || description === "") {
-      Alert.fire({
-        icon: "error",
-        title: "Selecione um experimento!",
-      });
-    } else if (!searchName) {
-      Alert.fire({
-        icon: "error",
-        title: "Insira um titulo no experimento!",
-      });
-    } else {
-      try {
-        const body = {
-          title: experiment,
-          titleActivity: searchName,
-          description: description,
-        };
-
-        createExperiment(idTeacher, body).then((response) => {
-          Alert.fire({
-            icon: "success",
-            title: "Experimento criado com sucesso!",
-          }).finally(() => {
-            navigate(
-              `/experimentroom/${response.data.experiment._id}/${response.data.experiment.pin}`
-            );
-          });
+    try {
+      const body = {
+        title: experiment,
+        titleActivity: searchName,
+        description: description,
+      };
+      createExperiment(idTeacher, body).then((response) => {
+        Swal.fire({
+          icon: "success",
+          title: "Experimento criado com sucesso!",
+        }).finally(() => {
+          navigate(
+            `/experimentroom/${response.data.experiment._id}/${response.data.experiment.pin}`,
+          );
         });
-      } catch (error) {
-        console.log(error);
-      }
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text:
+          error.response?.data?.message ||
+          "Ocorreu um erro desconhecido ao tentar criar um novo experimento.",
+      });
+      console.log(error.message);
     }
   };
 

@@ -14,68 +14,18 @@ const ColorList = ["#f56a00", "#7265e6", "#ffbf00", "#00a2ae"];
 const GapList = [4, 3, 2, 1];
 
 const Profile = () => {
-  const userType = localStorage.getItem("userType");
-  // const responseUser = JSON.parse(localStorage.getItem("responseUser"));
-  const responseUser = {
-    name: "stefsnie",
-  };
-  console.log(responseUser);
-  // const navigate = useNavigate();
-  // const [user, setUser] = useState(UserList[0]);
   const [color] = useState(ColorList[0]);
   const [gap] = useState(GapList[0]);
 
-  const [name, setName] = useState("Stefanie");
-  const [email, setEmail] = useState("stefaniesouza@gmail.com");
+  const [name, setName] = localStorage.getItem("name");
+  const [email, setEmail] = localStorage.getItem("email");
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChangeNewPassword = () => {
-    if (password !== confirmPassword) {
-      Alert.fire({
-        icon: "error",
-        title: "As senhas não coincidem!",
-      });
-    } else if (
-      !password.match(
-        `^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$`
-      )
-    ) {
-      Alert.fire({
-        icon: "error",
-        title:
-          "Deixe sua senha mais forte para sua segurança, insira numeros, caracteres especiais, letras maiúsculas e minúsculas.",
-      });
-    } else {
-      Alert.fire({
-        icon: "success",
-        title: "A sua senha foi alterada com sucesso!",
-      }).then(() => setShowPassword(false));
-    }
-  };
+  const handleChangeNewPassword = () => {};
 
-  const handleChangeInformations = () => {
-    if (!name) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Preencha o campo nome!",
-      });
-    } else if (!email || !email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Preencha o campo email corretamente!",
-      });
-    } else {
-      Swal.fire({
-        icon: "success",
-        title: "Sucesso!",
-        text: "As informações foram alteradas com sucesso!",
-      });
-    }
-  };
+  const handleChangeInformations = () => {};
 
   return (
     <Base
@@ -83,7 +33,6 @@ const Profile = () => {
       Icon={<MdOutlineBiotech />}
       goToName={"Perfil do Usuário"}
       titlepage={"ao seu perfil"}
-      // nameofuser={responseUser.name}
       children={
         <>
           <Row gutter={[32, 22]}>
@@ -96,14 +45,10 @@ const Profile = () => {
                     gap={gap}
                     className={styles.avatarProfile}
                   >
-                    {responseUser.name}
+                    {name}
                   </Avatar>
                 </div>
-                <span className={styles.nameProfile}> {responseUser.name}</span>
-                <span className={styles.ocupation}>
-                  {" "}
-                  {userType === "teacher" ? "Professor" : userType}
-                </span>
+                <span className={styles.nameProfile}> {name}</span>
               </Card>
             </Col>
             <Col xs={24} xl={16}>
@@ -114,7 +59,7 @@ const Profile = () => {
                     <Input
                       type="name"
                       id="name"
-                      defaultValue={responseUser.name}
+                      defaultValue={name}
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       className={styles.inputProfile}
@@ -127,17 +72,6 @@ const Profile = () => {
                       id="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className={styles.inputProfile}
-                    />
-                  </Col>
-                  <Col xs={24} xl={12}>
-                    <span className={styles.labelProfile}>
-                      Tipo de usuário:
-                    </span>
-                    <Input
-                      type="userType"
-                      id="userType"
-                      value={userType === "teacher" ? "Professor" : userType}
                       className={styles.inputProfile}
                     />
                   </Col>

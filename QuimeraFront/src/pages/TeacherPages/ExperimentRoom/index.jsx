@@ -47,9 +47,7 @@ export default function ExperimentRoom() {
 
   // Hook para buscar alunos em tempo real
   React.useEffect(() => {
-    console.log("estou aqui");
     setupSocketConnection(pinValue);
-    console.log("estou aquiii");
     listenForStudent((updatedStudents) => {
       setStudents(updatedStudents);
     });
@@ -59,17 +57,20 @@ export default function ExperimentRoom() {
   React.useEffect(() => {
     const fetchExperimentDetails = async () => {
       try {
+        if (!pinValue || isNaN(Number(pinValue))) {
+          return;
+        }
         const response = await getExperimentById(teacherId, idValue);
         setExperimentDetails(response.data.experiment);
 
         const alunos = await getStudentByPin(pinValue);
         setStudents(alunos.data);
       } catch (error) {
-        console.error("Erro ao buscar detalhes do experimento:", error);
         Swal.fire({
           icon: "error",
           title: "Erro!",
-          text: "Não foi possível carregar os detalhes do experimento.",
+          text:
+            error.response?.data?.message || "Ocorreu um erro desconhecido.",
         });
       }
     };
@@ -93,23 +94,22 @@ export default function ExperimentRoom() {
             liberateResult: true,
             pinRoom: pinValue,
           };
-          const response = await updateExperiment(idValue, body);
-          console.log(response);
+          await updateExperiment(idValue, body);
           Swal.fire({
             icon: "success",
             title: "Resultado liberado com sucesso!",
           });
         } catch (error) {
-          console.error("Erro ao liberar resultado:", error);
           Swal.fire({
             icon: "error",
             title: "Erro ao liberar resultado!",
-            text: "Tente novamente.",
+            text:
+              error.response?.data?.message || "Ocorreu um erro desconhecido.",
           });
         } finally {
           setButtonResult(false); // Reabilita o botão (para caso de erro, permitir nova tentativa)
         }
-      }
+      },
     );
   };
 
@@ -131,16 +131,16 @@ export default function ExperimentRoom() {
             title: "Experimento liberado com sucesso!",
           });
         } catch (error) {
-          console.error("Erro ao liberar experimento:", error);
           Swal.fire({
             icon: "error",
             title: "Erro ao liberar experimento!",
-            text: "Tente novamente.",
+            text:
+              error.response?.data?.message || "Ocorreu um erro desconhecido.",
           });
         } finally {
           setButtonExperiment(false); // Reabilita o botão
         }
-      }
+      },
     );
   };
 

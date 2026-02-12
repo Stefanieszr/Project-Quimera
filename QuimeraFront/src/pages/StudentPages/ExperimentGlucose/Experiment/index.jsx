@@ -60,20 +60,32 @@ const ExperimentTemperature = () => {
   ];
 
   React.useEffect(() => {
-    // Busca os dados do experimentos
-    getExperimentByPin(pin).then((response) => {
-      setExperimentData(response.data);
-    });
-    getExperimentSimulado().then((response) => {
-      setSimulado(response.data);
-    });
-    getStudentById(idStudent).then((response) => {
-      setStudent(response.data);
-      const answers = response.data.answers;
-      if (answers.length > 1) {
-        carouselRef.current.goTo(answers.length);
+    const fetchExperimentDetails = async () => {
+      try {
+        // Busca os dados do experimentos
+        const experiment = await getExperimentByPin(pin);
+        setExperimentData(experiment.data);
+
+        const simulado = await getExperimentSimulado();
+        setSimulado(simulado.data);
+
+        const responseStudent = await getStudentById(idStudent);
+        setStudent(responseStudent.data);
+        const answers = responseStudent.data.answers;
+        if (answers.length > 1) {
+          carouselRef.current.goTo(answers.length);
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Erro!",
+          text:
+            error.response?.data?.message ||
+            "Ocorreu um erro desconhecido ao tentar criar um novo experimento.",
+        });
       }
-    });
+    };
+    fetchExperimentDetails();
   }, [pin, idStudent]);
 
   // Hook para buscar alteração no experimento em tempo real
@@ -122,7 +134,7 @@ const ExperimentTemperature = () => {
           ([questionText, answerText]) => ({
             questionText,
             answerText,
-          })
+          }),
         ),
       };
       await updateStudent(body);
@@ -133,7 +145,7 @@ const ExperimentTemperature = () => {
         timer: 1500,
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 

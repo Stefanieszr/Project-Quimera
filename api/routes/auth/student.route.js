@@ -2,9 +2,40 @@ const express = require("express");
 const router = express.Router();
 const studentController = require("./../../controllers/auth/studentAuth.controller");
 
-router.post("/student", studentController.createStudent);
-router.get("/student/by-id/:id", studentController.findById);
-router.get("/student/by-pin/:pin", studentController.getStudentByPin);
-router.put("/student/update", studentController.updateStudentAnswers);
+const validate = require("../../middleware/validate");
+const {
+  registerStudentSchema,
+  updateStudentAnswersSchema,
+  studentIdParamSchema,
+  studentPinParamSchema,
+} = require("../../validation/studentValidation");
+
+// BODY
+router.post(
+  "/student",
+  validate(registerStudentSchema, "body"),
+  studentController.createStudent,
+);
+
+// PARAMS
+router.get(
+  "/student/by-id/:id",
+  validate(studentIdParamSchema, "params"),
+  studentController.findById,
+);
+
+// PARAMS
+router.get(
+  "/student/by-pin/:pin",
+  validate(studentPinParamSchema, "params"),
+  studentController.getStudentByPin,
+);
+
+// BODY
+router.put(
+  "/student/update",
+  validate(updateStudentAnswersSchema, "body"),
+  studentController.updateStudentAnswers,
+);
 
 module.exports = router;

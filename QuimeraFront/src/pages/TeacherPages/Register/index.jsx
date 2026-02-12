@@ -16,60 +16,22 @@ const Register = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-  const [setResponseUser] = useState({});
 
   const saveUser = async () => {
-    if (!name) {
-      Swal.fire({
-        icon: "error",
-        title: "Por favor, insira seu nome completo!",
-      });
-      return;
-    }
-
-    if (!email.match(`^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$`)) {
-      Swal.fire({
-        icon: "error",
-        title:
-          "Por favor, verifique o campo de e-mail se ele está correto, insira o @ e endereço!",
-      });
-      return;
-    }
-
-    if (
-      !password.match(
-        `^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$`
-      )
-    ) {
-      Swal.fire({
-        icon: "error",
-        title:
-          "Por favor, verifique o campo de senha, insira uma letra maiúscula, minúscula e caracter especial!",
-      });
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      Swal.fire({
-        icon: "error",
-        title: "As senhas não coincidem, por favor verifique!",
-      });
-      return;
-    }
     try {
-      await createTeacher(name, email, password).then((response) => {
-        setResponseUser(response.data);
-      });
+      await createTeacher(name, email, password);
+
       Swal.fire({
         icon: "success",
-        title: "Registro criado com sucesso! faça o login agora.",
+        title: "Registro criado com sucesso!",
       });
       navigate("/loginTeacher");
     } catch (error) {
-      console.error("Error logging in teacher:", error);
+      console.error("Error registering teacher:", error);
       Swal.fire({
         icon: "error",
-        title: "Erro ao realizar o login!",
+        title: "Erro ao realizar o registro!",
+        text: error.response?.data?.message || "Ocorreu um erro desconhecido.",
       });
     }
   };

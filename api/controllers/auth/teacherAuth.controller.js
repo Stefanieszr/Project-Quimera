@@ -18,8 +18,12 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const teacher = await Teacher.findOne({ email, password });
+    const teacher = await Teacher.findOne({ email });
     if (!teacher) throw new Error("Usuário não encontrado.");
+
+    const bcrypt = require("bcrypt");
+    const isMatch = await bcrypt.compare(password, teacher.password);
+    if (!isMatch) throw new Error("Senha incorreta.");
 
     const token = jwt.sign({ _id: teacher._id, userType: teacher.userType }, JWT_SECRET, {
       expiresIn: "1h",

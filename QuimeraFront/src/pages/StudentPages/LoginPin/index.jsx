@@ -14,51 +14,29 @@ export default function LoginPin() {
   const [name, setName] = React.useState("");
   const navigate = useNavigate();
 
-  function validatePin(pin, name) {
-    const pinRegex = /^\d{4}$/;
-    if (!pinRegex.test(pin)) {
-      Swal.fire({
-        icon: "error",
-        title: "Erro",
-        text: "O PIN deve conter exatamente 4 números",
-      });
-      return false;
-    }
-    if (name.trim() === "") {
-      Swal.fire({
-        icon: "error",
-        title: "Erro",
-        text: "O nome do aluno deve ser preenchido",
-      });
-      return false;
-    }
-    return true;
-  }
   function handleLogin() {
-    if (validatePin(pin, name)) {
-      const body = {
-        name: name,
-        pin: pin,
-      };
-      createStudent(body)
-        .then((response) => {
-          const student = response.data.student;
-          localStorage.setItem("idStudent", student._id);
-          if (student.title.includes("Água")) {
-            navigate(`/waitingroom/Water/${pin}`);
-          } else if (student.title.includes("Glicose")) {
-            navigate(`/waitingroom/Glucose/${pin}`);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          Swal.fire({
-            icon: "error",
-            title: "Erro",
-            text: err.response.data.message,
-          });
+    const body = {
+      name: name,
+      pin: pin,
+    };
+    createStudent(body)
+      .then((response) => {
+        const student = response.data.student;
+        localStorage.setItem("idStudent", student._id);
+        if (student.title.includes("Água")) {
+          navigate(`/waitingroom/Water/${pin}`);
+        } else if (student.title.includes("Glicose")) {
+          navigate(`/waitingroom/Glucose/${pin}`);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Erro",
+          text: err.response.data.message,
         });
-    }
+      });
   }
 
   return (

@@ -3,45 +3,98 @@ const ExperimentController = require("@/controllers/experiment/experiment.contro
 const ExperimentWaterController = require("@/controllers/experiment/ExperimentWater/water.controller.js");
 const ExperimentGlucoseController = require("@/controllers/experiment/ExperimentGlucose/glucose.controller.js");
 
+const Joi = require("joi");
 const routes = express.Router();
 
-// ---------- POST ----------
-routes.post("/teachers/:id/experiments", ExperimentController.create);
+const validate = require("../../middleware/validate");
+const {
+  createExperimentSchema,
+  updateExperimentSchema,
+  experimentIdSchema,
+  teacherIdSchema,
+  pinSchema,
+} = require("../../validation/experimentValidation");
 
-// ---------- GET ----------
-routes.get("/students/:id/graphic", ExperimentWaterController.getTotalGraphic);
+const auth = require("../../middleware/auth");
+
+// ---------- POST (BODY + PARAMS) ----------
+routes.post(
+  "/teachers/:id/experiments",
+  auth,
+  validate(teacherIdSchema, "params"),
+  validate(createExperimentSchema, "body"),
+  ExperimentController.create,
+);
+
+// ---------- GET (PARAMS) ----------
+routes.get(
+  "/students/:id/graphic",
+  validate(experimentIdSchema, "params"),
+  ExperimentWaterController.getTotalGraphic,
+);
+
 routes.get(
   "/students/initial-graphic",
-  ExperimentWaterController.getInicialGrahic
+  ExperimentWaterController.getInicialGrahic,
 );
 
-routes.get("/experiments/pin/:pin", ExperimentController.getExperimentByPin);
+routes.get(
+  "/experiments/pin/:pin",
+  validate(pinSchema, "params"),
+  ExperimentController.getExperimentByPin,
+);
+
 routes.get(
   "/teachers/:teacherId/experiments/:experimentId",
-  ExperimentController.getExperimentById
+  auth,
+  validate(
+    Joi.object({
+      teacherId: teacherIdSchema,
+      experimentId: experimentIdSchema,
+    }),
+    "params",
+  ),
+  ExperimentController.getExperimentById,
 );
-routes.get("/teachers/:id/experiments", ExperimentController.getAllExperiments);
 
+routes.get(
+  "/teachers/:id/experiments",
+  auth,
+  validate(teacherIdSchema, "params"),
+  ExperimentController.getAllExperiments,
+);
+
+// ---------- GET (sem validação de entrada) ----------
 routes.get(
   "/experiments/simulado",
-  ExperimentGlucoseController.getExperimentSimulado
+  ExperimentGlucoseController.getExperimentSimulado,
 );
+
 routes.get(
   "/experiments/options",
-  ExperimentWaterController.getExperimentOptions
+  ExperimentWaterController.getExperimentOptions,
 );
+
 routes.get(
   "/experiments/optionOne",
-  ExperimentWaterController.getExperimentOptionOne
+  ExperimentWaterController.getExperimentOptionOne,
 );
 
-// ---------- PUT ----------
+// ---------- PUT (PARAMS + BODY) ----------
 routes.put(
   "/experiments/:id/update-experimet",
-  ExperimentController.updateExperiment
+  auth,
+  validate(experimentIdSchema, "params"),
+  validate(updateExperimentSchema, "body"),
+  ExperimentController.updateExperiment,
 );
 
-// ---------- DELETE ----------
-routes.delete("/experiments/:id", ExperimentController.delete);
+// ---------- DELETE (PARAMS) ----------
+routes.delete(
+  "/experiments/:id",
+  auth,
+  validate(experimentIdSchema, "params"),
+  ExperimentController.delete,
+);
 
 module.exports = routes;

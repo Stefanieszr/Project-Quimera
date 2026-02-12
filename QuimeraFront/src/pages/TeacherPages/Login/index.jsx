@@ -21,20 +21,6 @@ const Login = () => {
     const email = refEmail.current.input.value.trim();
     const password = refPassword.current.input.value.trim();
 
-    if (email.length === 0) {
-      Alert.fire({
-        icon: "error",
-        title: "Insira um e-mail para realizar o login!",
-      });
-      return;
-    } else if (password.length === 0) {
-      Alert.fire({
-        icon: "error",
-        title: "Insira sua senha para realizar o login!",
-      });
-      return;
-    }
-
     try {
       const { token, name, _id } = (await loginTeacher(email, password)).data;
 
@@ -49,10 +35,12 @@ const Login = () => {
         title: "Login realizado com sucesso!",
       });
       navigate("/dashboard");
-    } catch {
+    } catch (error) {
+      console.error("Error logging in teacher:", error);
       Alert.fire({
         icon: "error",
         title: "Erro ao realizar o login!",
+        text: error.response?.data?.message || "Ocorreu um erro desconhecido.",
       });
     }
   };
